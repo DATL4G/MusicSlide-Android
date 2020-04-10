@@ -18,6 +18,7 @@ class LockActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lock)
 
+        setLockAppearance()
         enterFullScreen()
         hideSystemUI()
         pagerSetup()
@@ -28,6 +29,16 @@ class LockActivity : AppCompatActivity() {
         viewPager.adapter = LockPager(this)
         viewPager.currentItem = 1
         viewPager.setPageTransformer(LockTransformer())
+    }
+
+    private fun setLockAppearance() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+        }
     }
 
     private fun enterFullScreen() {
