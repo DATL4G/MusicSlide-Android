@@ -6,8 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import de.datlag.musicslide.adapter.LockPager
 import de.datlag.musicslide.transformer.LockTransformer
 
@@ -29,6 +27,14 @@ class LockActivity : AppCompatActivity() {
         viewPager.adapter = LockPager(this)
         viewPager.currentItem = 1
         viewPager.setPageTransformer(LockTransformer())
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == 0) {
+                    finishAffinity()
+                }
+            }
+        })
     }
 
     private fun setLockAppearance() {
