@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import de.datlag.musicslide.adapter.LockPager
@@ -23,18 +24,45 @@ class LockActivity : AppCompatActivity() {
     }
 
     private fun pagerSetup() {
+        var scrollState = 0
+        var pos = 1
+        var offset = 0.5F
+
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = LockPager(this)
-        viewPager.currentItem = 1
+        viewPager.currentItem = pos
         viewPager.setPageTransformer(LockTransformer())
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (position == 0) {
-                    finishAffinity()
-                }
+                pos = position
+                exit(pos, scrollState, offset)
             }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                scrollState = state
+                exit(pos, scrollState, offset)
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                offset = positionOffset
+                exit(pos, scrollState, offset)
+            }
+
         })
+    }
+
+    private fun exit(pos: Int, scrollState: Int, offset: Float) {
+        if ((pos == 0 && scrollState == 2) && (offset > 0.9F || offset == 0.0F)) {
+            finishAffinity()
+        }
     }
 
     private fun setLockAppearance() {

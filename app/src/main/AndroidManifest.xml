@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="de.datlag.musicslide">
 
     <uses-permission
@@ -25,7 +26,8 @@
             android:showForAllUsers="true"
             android:showWhenLocked="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW"
-            android:exported="true">
+            android:exported="true"
+            android:excludeFromRecents="true">
         </activity>
         <activity
             android:name=".MainActivity"

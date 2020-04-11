@@ -15,7 +15,7 @@ class LockPager(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragm
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             1 -> MusicFragment.newInstance()
-            else -> LockFragment.newInstance(position)
+            else -> LockFragment.newInstance()
         }
     }
 
