@@ -17,7 +17,6 @@ class App : Application() {
 
         startServices()
         setBootOptions()
-        Toast.makeText(this, "Receiver and Service registered", Toast.LENGTH_LONG).show()
     }
 
     private fun startServices() {
