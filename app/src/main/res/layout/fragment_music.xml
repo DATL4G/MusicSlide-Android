@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark">
+    android:background="#ccedff">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginLeft="?attr/actionBarSize"
+        android:layout_marginStart="?attr/actionBarSize"
+        android:layout_marginRight="?attr/actionBarSize"
+        android:layout_marginEnd="?attr/actionBarSize"
+        android:background="@drawable/music_bar_background">
+
+        <rm.com.audiowave.AudioWaveView
+            android:id="@+id/audioWave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            app:animateExpansion="true"
+            app:chunkHeight="16dp"
+            app:chunkWidth="3dp"
+            app:minChunkHeight="2dp"
+            app:chunkSpacing="1dp"
+            app:chunkRadius="1dp"
+            app:touchable="true"
+            app:waveColor="@color/primaryColor"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

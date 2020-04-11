@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.datlag.musicslide.extend.AdvancedActivity
 
@@ -15,6 +16,11 @@ class MainActivity : AdvancedActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        CommonUtil.enterFullScreen(window)
+        CommonUtil.showSystemUI(window)
+        CommonUtil.useNotchSpace(window)
+        CommonUtil.setStatusBarColor(window, ContextCompat.getColor(this, R.color.statusBarColor))
+        CommonUtil.requestPortrait(this)
         askPermission()
     }
 
@@ -34,5 +40,8 @@ class MainActivity : AdvancedActivity() {
                 .create().show()
             }
         }
+    }
+
+    companion object {
     }
 }

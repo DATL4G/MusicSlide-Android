@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import de.datlag.musicslide.receiver.BootReceiver
 import de.datlag.musicslide.services.LockService
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
 
 class App : Application() {
 
@@ -17,6 +20,17 @@ class App : Application() {
 
         startServices()
         setBootOptions()
+        applyFont()
+    }
+
+    private fun applyFont() {
+        ViewPump.init(ViewPump.builder()
+            .addInterceptor(CalligraphyInterceptor(
+                CalligraphyConfig.Builder()
+                    .setDefaultFontPath(this.getString(R.string.font_path))
+                    .setFontAttrId(R.attr.fontPath)
+                    .build()))
+            .build())
     }
 
     private fun startServices() {

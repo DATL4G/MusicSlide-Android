@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import de.datlag.musicslide.R
 import kotlinx.android.synthetic.main.fragment_lock.*
 import rm.com.clocks.ClockImageView
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
@@ -60,9 +61,10 @@ class LockFragment : Fragment() {
         val now = Calendar.getInstance()
         val hour = now.get(Calendar.HOUR_OF_DAY)
         val minute = now.get(Calendar.MINUTE)
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
         clockImageView.animateToTime(hour, minute)
-        clockTextView.text = "$hour:$minute"
+        clockTextView.text = dateFormat.format(now.time)
     }
 
     private fun calculateNextDelay(): Long {

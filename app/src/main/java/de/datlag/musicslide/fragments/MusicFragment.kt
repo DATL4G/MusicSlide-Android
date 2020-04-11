@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.datlag.musicslide.R
+import rm.com.audiowave.AudioWaveView
 
 class MusicFragment : Fragment() {
+
+    private lateinit var audioWaveView: AudioWaveView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,13 @@ class MusicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        audioWaveView = view.findViewById(R.id.audioWave)
+    }
+
+    private fun setMusicData() {
+        audioWaveView.onProgressChanged = { progress, byUser ->
+
+        }
     }
 
     companion object {

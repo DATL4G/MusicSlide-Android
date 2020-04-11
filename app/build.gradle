@@ -56,7 +56,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'io.github.inflationx:viewpump:2.0.3'
-    implementation 'com.github.ozodrukh:CircularReveal:2.1.0'
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
 
     implementation 'com.github.alxrm:animated-clock-icon:1.0.2'
+    implementation 'com.github.alxrm:audiowave-progressbar:0.9.2'
+
+    implementation project(':spotify-app-remote')
 }
