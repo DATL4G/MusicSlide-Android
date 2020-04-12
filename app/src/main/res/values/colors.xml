@@ -5,6 +5,8 @@
     <color name="primaryDarkColor">#a2000f</color>
     <color name="snackbarBackground">#323232</color>
 
+    <color name="buttonColor">#000000</color>
+    <color name="buttonTextColor">#ffffff</color>
     <color name="statusBarColor">#ffffff</color>
     <color name="defaultTextColor">#000000</color>
 </resources>

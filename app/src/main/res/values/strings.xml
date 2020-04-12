@@ -3,4 +3,5 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="font_path" translatable="false">fonts/Poppins-Regular.ttf</string>
+    <string name="settings">Settings</string>
 </resources>

@@ -1,15 +1,12 @@
-package de.datlag.musicslide
+package de.datlag.musicslide.util
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.pm.ActivityInfo
-import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import androidx.core.view.DisplayCutoutCompat
 
 class CommonUtil {
 

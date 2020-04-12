@@ -3,9 +3,7 @@ package de.datlag.musicslide.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import de.datlag.musicslide.LockActivity
-import de.datlag.musicslide.MainActivity
 
 class BootReceiver : BroadcastReceiver() {
 

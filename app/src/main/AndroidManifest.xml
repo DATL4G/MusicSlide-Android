@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="de.datlag.musicslide">
 
     <uses-permission
@@ -27,7 +26,8 @@
             android:showWhenLocked="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW"
             android:exported="true"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".MainActivity"
@@ -35,10 +35,14 @@
             android:theme="@style/AppTheme.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="com.spotify.sdk.android.authentication.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service android:name=".services.LockService"
             android:enabled="true"
@@ -60,9 +64,13 @@
 
         <receiver
             android:name=".receiver.SpotifyReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.spotify.music.active" />
+                <action android:name="com.spotify.music.playbackstatechanged"/>
+                <action android:name="com.spotify.music.metadatachanged"/>
+                <action android:name="com.spotify.music.queuechanged"/>
             </intent-filter>
         </receiver>
     </application>

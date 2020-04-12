@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import de.datlag.musicslide.R
-import kotlinx.android.synthetic.main.fragment_lock.*
 import rm.com.clocks.ClockImageView
 import java.text.SimpleDateFormat
 import java.util.*

@@ -2,6 +2,8 @@ package de.datlag.musicslide.extend
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +27,11 @@ abstract class AdvancedActivity : AppCompatActivity() {
         return lazy(LazyThreadSafetyMode.NONE) {
             findViewById<ViewT>(idRes)
         }
+    }
+
+    fun browserIntent(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        this.startActivity(browserIntent)
     }
 
 }

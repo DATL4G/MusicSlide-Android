@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import de.datlag.musicslide.adapter.LockPager
 import de.datlag.musicslide.transformer.LockTransformer
+import de.datlag.musicslide.util.CommonUtil
 
 
 class LockActivity : AppCompatActivity() {
