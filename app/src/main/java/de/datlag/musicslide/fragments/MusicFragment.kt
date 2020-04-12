@@ -14,6 +14,7 @@ import com.spotify.protocol.types.PlayerState
 import de.datlag.musicslide.R
 import de.datlag.musicslide.util.SpotifyUtil
 import kotlinx.android.synthetic.main.fragment_music.*
+import java.util.*
 
 class MusicFragment : Fragment() {
 
@@ -53,9 +54,11 @@ class MusicFragment : Fragment() {
 
         spotifyAppRemote?.playerApi?.playerState?.setResultCallback {
             setSpotifyData(spotifyAppRemote, it)
+            SpotifyUtil.lastBeat = Calendar.getInstance()
         }
         spotifyAppRemote?.playerApi?.subscribeToPlayerState()?.setEventCallback {
             setSpotifyData(spotifyAppRemote, it)
+            SpotifyUtil.lastBeat = Calendar.getInstance()
         }
     }
 

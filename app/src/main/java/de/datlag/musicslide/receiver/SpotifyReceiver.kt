@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import de.datlag.musicslide.util.SpotifyUtil
+import java.util.*
 
 class SpotifyReceiver : BroadcastReceiver() {
 
@@ -11,23 +13,18 @@ class SpotifyReceiver : BroadcastReceiver() {
         intent?.let { it ->
             when (it.action) {
                 BroadcastTypes.METADATA_CHANGED -> {
-                    Log.e("Spotify", "Artist: ${it.getStringExtra("artist")}")
-                    Log.e("Spotify", "Album: ${it.getStringExtra("album")}")
-                    Log.e("Spotify", "Track: ${it.getStringExtra("track")}")
-                    Log.e("Spotify", "Length: ${it.getIntExtra("length", 0)}")
+                    SpotifyUtil.lastBeat = Calendar.getInstance()
                 }
                 BroadcastTypes.PLAYBACK_STATE_CHANGED -> {
-                    Log.e("Spotify", "State changed")
+                    SpotifyUtil.lastBeat = Calendar.getInstance()
                 }
                 BroadcastTypes.QUEUE_CHANGED -> {
-                    Log.e("Spotify", "Queue changed")
+                    SpotifyUtil.lastBeat = Calendar.getInstance()
                 }
                 BroadcastTypes.ACTIVE -> {
-                    Log.e("Spotify", "is active")
+                    SpotifyUtil.lastBeat = Calendar.getInstance()
                 }
-                else -> {
-                    Log.e("Spotify", "Action: ${it.action}")
-                }
+                else -> {}
             }
         }
     }

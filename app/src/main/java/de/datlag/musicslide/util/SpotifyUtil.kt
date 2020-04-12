@@ -5,6 +5,7 @@ import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import de.datlag.musicslide.extend.AdvancedActivity
+import java.util.*
 
 class SpotifyUtil {
 
@@ -14,6 +15,7 @@ class SpotifyUtil {
         const val REDIRECT_URI = "https://github.com/DATL4G/MusicSlide-Android"
 
         private var appRemote: SpotifyAppRemote? = null
+        var lastBeat: Calendar = Calendar.getInstance().apply { add(Calendar.MINUTE, -20) }
 
         fun removeAccess(advancedActivity: AdvancedActivity) {
             advancedActivity.browserIntent("https://spotify.com/account/apps")
