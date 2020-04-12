@@ -1,15 +1,12 @@
 package de.datlag.musicslide.services
 
 import android.app.Service
-import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
-import de.datlag.musicslide.receiver.BootReceiver
+import de.datlag.musicslide.util.BootUtil
 
 class LockService : Service() {
-
-    private var receiver: BroadcastReceiver? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -22,8 +19,12 @@ class LockService : Service() {
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF)
         intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED)
 
-        receiver = BootReceiver()
-        registerReceiver(receiver, intentFilter)
+        BootUtil.registerReceiver(this, intentFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        BootUtil.unregisterReceiver(this)
     }
 
 }

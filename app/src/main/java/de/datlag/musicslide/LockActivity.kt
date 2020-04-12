@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import de.datlag.musicslide.adapter.LockPager
 import de.datlag.musicslide.transformer.LockTransformer
+import de.datlag.musicslide.util.BootUtil
 import de.datlag.musicslide.util.CommonUtil
+import de.datlag.musicslide.util.StreamingUtil
 
 
 class LockActivity : AppCompatActivity() {
@@ -72,5 +74,17 @@ class LockActivity : AppCompatActivity() {
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        BootUtil.registerReceiver(this)
+        StreamingUtil.registerReceiver(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        BootUtil.unregisterReceiver(this)
+        StreamingUtil.unregisterReceiver(this)
     }
 }

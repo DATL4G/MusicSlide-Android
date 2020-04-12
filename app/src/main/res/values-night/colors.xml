@@ -2,6 +2,7 @@
 <resources>
     <color name="buttonColor">#ffffff</color>
     <color name="buttonTextColor">#000000</color>
+    <color name="buttonIcon">#000000</color>
     <color name="statusBarColor">#000000</color>
     <color name="defaultTextColor">#ffffff</color>
 </resources>

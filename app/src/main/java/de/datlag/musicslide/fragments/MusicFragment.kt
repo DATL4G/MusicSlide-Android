@@ -30,7 +30,16 @@ class MusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (moveRight.drawable as Animatable).start()
+    }
+
+    override fun onResume() {
+        super.onResume()
         connectStreamServices()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        SpotifyAppRemote.disconnect(SpotifyUtil.getAppRemote())
     }
 
     private fun connectStreamServices() {
