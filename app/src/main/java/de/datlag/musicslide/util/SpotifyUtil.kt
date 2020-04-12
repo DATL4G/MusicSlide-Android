@@ -10,7 +10,7 @@ class SpotifyUtil {
 
     companion object {
 
-        const val CLIENT_ID = "0dcef846bca14352b9bb2b7737ad4247"
+        const val CLIENT_ID = "client_id"
         const val REDIRECT_URI = "https://github.com/DATL4G/MusicSlide-Android"
 
         private var appRemote: SpotifyAppRemote? = null
