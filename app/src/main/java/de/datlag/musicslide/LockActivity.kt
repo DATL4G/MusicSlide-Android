@@ -1,5 +1,6 @@
 package de.datlag.musicslide
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -24,6 +25,11 @@ class LockActivity : AppCompatActivity() {
         CommonUtil.hideSystemUI(window)
         CommonUtil.requestPortrait(this)
         pagerSetup()
+
+        val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
+        if (!sharedPreferences.getBoolean("appearance", false)) {
+            finishAffinity()
+        }
     }
 
     private fun pagerSetup() {

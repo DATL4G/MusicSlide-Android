@@ -3,6 +3,7 @@ package de.datlag.musicslide
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -29,6 +30,7 @@ class MainActivity : AdvancedActivity() {
         setContentView(R.layout.activity_main)
 
         sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
+        writeSharedPrefs()
 
         CommonUtil.enterFullScreen(window)
         CommonUtil.showSystemUI(window)
@@ -37,20 +39,19 @@ class MainActivity : AdvancedActivity() {
         CommonUtil.requestPortrait(this)
         askPermission()
 
+        applySwitches()
+
         linkSpotify.applyScaleClick()
         linkDeezer.applyScaleClick()
         linkDeezer.text = "Connect"
 
-        switchAppearance.setOnCheckedChangeListener { _, isChecked ->
-            sharedPreferences.edit().putBoolean("appearance", isChecked).apply()
-        }
 
-        switchButton.setOnCheckedChangeListener { _, isChecked ->
-            sharedPreferences.edit().putBoolean("buttons_usable", isChecked).apply()
-        }
+    }
 
-        switchAppearance.isChecked = sharedPreferences.getBoolean("appearance", true)
-        switchButton.isChecked = sharedPreferences.getBoolean("buttons_usable", true)
+    private fun writeSharedPrefs() {
+        sharedPreferences.edit().putBoolean("appearance", sharedPreferences.getBoolean("appearance", true)).apply()
+        sharedPreferences.edit().putBoolean("buttons_usable", sharedPreferences.getBoolean("buttons_usable", true)).apply()
+        sharedPreferences.edit().putBoolean("skip_usable", sharedPreferences.getBoolean("skip_usable", true)).apply()
     }
 
     private fun askPermission() {
@@ -88,6 +89,40 @@ class MainActivity : AdvancedActivity() {
                 })
             }
         }
+    }
+
+    private fun applySwitches() {
+        switchAppearance.setOnCheckedChangeListener { isChecked ->
+            sharedPreferences.edit().putBoolean("appearance", isChecked).apply()
+        }
+
+        switchSkip.setOnCheckedChangeListener { isChecked ->
+            sharedPreferences.edit().putBoolean("skip_usable", isChecked).apply()
+        }
+
+        switchButton.setOnCheckedChangeListener { isChecked ->
+            sharedPreferences.edit().putBoolean("buttons_usable", isChecked).apply()
+            if (switchSkip.isChecked)
+                switchSkip.setChecked(isChecked, false)
+            skipEnableState(isChecked)
+        }
+
+        switchAppearance.setChecked(sharedPreferences.getBoolean("appearance", true), false)
+        switchButton.setChecked(sharedPreferences.getBoolean("buttons_usable", true), false)
+        switchSkip.setChecked(switchButton.isChecked && sharedPreferences.getBoolean("skip_usable", true), false)
+        skipEnableState(switchButton.isChecked)
+    }
+
+    private fun skipEnableState(isEnabled: Boolean) {
+        switchSkip.isEnabled = isEnabled
+        if (!isEnabled) {
+            switchSkip.onColor = Color.GRAY
+            switchSkip.offColor = Color.GRAY
+        } else {
+            switchSkip.onColor = ContextCompat.getColor(activity, R.color.buttonColor)
+            switchSkip.offColor = ContextCompat.getColor(activity, R.color.buttonColor )
+        }
+        switchSkip.applyColorChange()
     }
 
     override fun onStart() {

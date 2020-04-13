@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "de.datlag.musicslide"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -65,7 +65,8 @@ dependencies {
     implementation 'io.github.inflationx:viewpump:2.0.3'
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
 
-    implementation 'tk.zielony:carbon:0.16.0.1'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.github.DATL4G:Switcher:-SNAPSHOT'
     implementation 'com.github.alxrm:animated-clock-icon:1.0.2'
 
     implementation 'com.spotify.android:auth:1.1.0'

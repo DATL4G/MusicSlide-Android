@@ -1,5 +1,7 @@
 package de.datlag.musicslide.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +14,22 @@ import androidx.fragment.app.Fragment
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.PlayerState
 import de.datlag.musicslide.R
+import de.datlag.musicslide.util.CommonUtil.Companion.applyScaleClick
 import de.datlag.musicslide.util.SpotifyUtil
 import kotlinx.android.synthetic.main.fragment_music.*
 import java.util.*
 
 class MusicFragment : Fragment() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPreferences = requireContext().getSharedPreferences(requireContext().packageName, Context.MODE_PRIVATE)
+        if (!sharedPreferences.getBoolean("appearance", false)) {
+            requireActivity().finishAffinity()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +82,12 @@ class MusicFragment : Fragment() {
             setSpotifyData(spotifyAppRemote, it)
             SpotifyUtil.lastBeat = Calendar.getInstance()
         }
+        spotifyAppRemote?.playerApi?.subscribeToPlayerState()?.setErrorCallback {
+            requireActivity().finishAffinity()
+        }
+        spotifyAppRemote?.playerApi?.subscribeToPlayerContext()?.setErrorCallback {
+            requireActivity().finishAffinity()
+        }
     }
 
     private fun setSpotifyData(spotifyAppRemote: SpotifyAppRemote, playerState: PlayerState) {
@@ -77,26 +96,54 @@ class MusicFragment : Fragment() {
         spotifyAppRemote.imagesApi.getImage(playerState.track.imageUri).setResultCallback {
             trackImage.setImageBitmap(it)
         }
-        skipPrevious.setOnClickListener {
-            spotifyAppRemote.playerApi.skipPrevious()
+
+        skipPrevious.apply {
+            applyScaleClick(0.8F)
+            setOnClickListener {
+                if (buttonsUsable(true)) {
+                    spotifyAppRemote.playerApi.skipPrevious()
+                }
+            }
         }
-        skipNext.setOnClickListener {
-            spotifyAppRemote.playerApi.skipNext()
+
+        skipNext.apply {
+            applyScaleClick(0.8F)
+            setOnClickListener {
+                if (buttonsUsable(true)) {
+                    spotifyAppRemote.playerApi.skipNext()
+                }
+            }
         }
+
         playPause.apply {
+            applyScaleClick(0.8F)
             if (playerState.isPaused) {
                 setDrawable(R.drawable.ic_play_circle_filled_white_24dp)
                 setOnClickListener {
-                    spotifyAppRemote.playerApi.resume()
-                    setDrawable(R.drawable.ic_pause_circle_filled_white_24dp)
+                    if (buttonsUsable()) {
+                        spotifyAppRemote.playerApi.resume()
+                        setDrawable(R.drawable.ic_pause_circle_filled_white_24dp)
+                    }
                 }
             } else {
                 setDrawable(R.drawable.ic_pause_circle_filled_white_24dp)
                 setOnClickListener {
-                    spotifyAppRemote.playerApi.pause()
-                    setDrawable(R.drawable.ic_play_circle_filled_white_24dp)
+                    if (buttonsUsable()) {
+                        spotifyAppRemote.playerApi.pause()
+                        setDrawable(R.drawable.ic_play_circle_filled_white_24dp)
+                    }
                 }
             }
+        }
+
+        trackControl.visibility = View.VISIBLE
+    }
+
+    private fun buttonsUsable(checkSkip: Boolean = false): Boolean {
+        return if (!checkSkip) {
+            sharedPreferences.getBoolean("buttons_usable", false)
+        } else {
+            buttonsUsable(false) && sharedPreferences.getBoolean("skip_usable", false)
         }
     }
 

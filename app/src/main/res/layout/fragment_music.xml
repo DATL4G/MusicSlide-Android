@@ -38,7 +38,7 @@
         android:layout_marginLeft="?attr/actionBarSize"
         android:layout_marginStart="?attr/actionBarSize"/>
 
-    <carbon.widget.ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/trackImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -50,7 +50,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="?attr/actionBarSize"
         android:layout_marginStart="?attr/actionBarSize"
-        app:carbon_cornerRadius="20dp"/>
+        app:riv_corner_radius="20dp"
+        app:riv_mutate_background="true"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="?attr/actionBarSize"
@@ -68,7 +69,8 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="?attr/actionBarSize"
-        android:layout_marginStart="?attr/actionBarSize">
+        android:layout_marginStart="?attr/actionBarSize"
+        android:visibility="invisible">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="?attr/actionBarSize"
@@ -90,7 +92,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/playPause"/>
 
-        <androidx.appcompat.widget.AppCompatImageView            android:layout_width="?attr/actionBarSize"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_skip_next_white_24dp"
