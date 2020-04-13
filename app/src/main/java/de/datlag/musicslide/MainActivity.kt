@@ -72,20 +72,29 @@ class MainActivity : AdvancedActivity() {
     }
 
     private fun matchSpotifyLinkButton(spotifyAppRemote: SpotifyAppRemote?) {
-        linkSpotify.isEnabled = SpotifyAppRemote.isSpotifyInstalled(this)
-        linkSpotify.text = if (SpotifyUtil.isConnected(spotifyAppRemote)) getString(R.string.disconnect) else getString(R.string.connect)
+        linkSpotify.text = if (!SpotifyAppRemote.isSpotifyInstalled(activity)) {
+            activity.getString(R.string.install)
+        } else if (SpotifyUtil.isConnected(spotifyAppRemote)) {
+            activity.getString(R.string.disconnect)
+        } else {
+            activity.getString(R.string.connect)
+        }
         linkSpotify.setOnClickListener {
-            if (spotifyAppRemote != null && spotifyAppRemote.isConnected) {
-                SpotifyUtil.removeAccess(activity)
+            if (SpotifyAppRemote.isSpotifyInstalled(activity)) {
+                if (spotifyAppRemote != null && spotifyAppRemote.isConnected) {
+                    SpotifyUtil.removeAccess(activity)
+                } else {
+                    val connectionParams = SpotifyUtil.connectionBuilder(activity)
+                        .showAuthView(true)
+                        .build()
+                    SpotifyUtil.connect(activity, connectionParams, object: SpotifyUtil.ChangeListener{
+                        override fun onChanged(spotifyAppRemote: SpotifyAppRemote?) {
+                            matchSpotifyLinkButton(spotifyAppRemote)
+                        }
+                    })
+                }
             } else {
-                val connectionParams = SpotifyUtil.connectionBuilder(activity)
-                    .showAuthView(true)
-                    .build()
-                SpotifyUtil.connect(activity, connectionParams, object: SpotifyUtil.ChangeListener{
-                    override fun onChanged(spotifyAppRemote: SpotifyAppRemote?) {
-                        matchSpotifyLinkButton(spotifyAppRemote)
-                    }
-                })
+                browserIntent(activity.getString(R.string.spotify_playstore))
             }
         }
     }

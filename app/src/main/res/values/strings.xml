@@ -5,6 +5,7 @@
 
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
+    <string name="install">Install</string>
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
     <string name="grant">Grant</string>
@@ -41,4 +42,5 @@
     <!-- links -->
     <string name="github_repo" translatable="false">https://github.com/DATL4G/MusicSlide-Android</string>
     <string name="spotify_apps" translatable="false">https://spotify.com/account/apps</string>
+    <string name="spotify_playstore" translatable="false">https://play.google.com/store/apps/details?id=com.spotify.music</string>
 </resources>
