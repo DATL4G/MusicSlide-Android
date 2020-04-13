@@ -8,18 +8,19 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.core.content.ContextCompat
+import com.deezer.sdk.network.connect.event.DialogListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import de.datlag.musicslide.extend.AdvancedActivity
-import de.datlag.musicslide.util.BootUtil
-import de.datlag.musicslide.util.CommonUtil
+import de.datlag.musicslide.util.*
 import de.datlag.musicslide.util.CommonUtil.Companion.applyScaleClick
-import de.datlag.musicslide.util.SpotifyUtil
-import de.datlag.musicslide.util.StreamingUtil
+import de.datlag.musicslide.util.CommonUtil.Companion.isAppInstalled
 import de.datlag.musicslide.util.SaveUtil.Companion.saveBool
 import de.datlag.musicslide.util.SaveUtil.Companion.getBool
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 
 class MainActivity : AdvancedActivity() {
@@ -81,7 +82,7 @@ class MainActivity : AdvancedActivity() {
         }
         linkSpotify.setOnClickListener {
             if (SpotifyAppRemote.isSpotifyInstalled(activity)) {
-                if (spotifyAppRemote != null && spotifyAppRemote.isConnected) {
+                if (SpotifyUtil.isConnected(spotifyAppRemote)) {
                     SpotifyUtil.removeAccess(activity)
                 } else {
                     val connectionParams = SpotifyUtil.connectionBuilder(activity)
@@ -95,6 +96,41 @@ class MainActivity : AdvancedActivity() {
                 }
             } else {
                 browserIntent(activity.getString(R.string.spotify_playstore))
+            }
+        }
+    }
+
+    private fun matchDeezerLinkButton() {
+        linkDeezer.text = if (!isAppInstalled(activity.getString(R.string.deezer_package))) {
+            activity.getString(R.string.install)
+        } else if (DeezerUtil.isConnected()) {
+            activity.getString(R.string.disconnect)
+        } else {
+            activity.getString(R.string.connect)
+        }
+        linkDeezer.setOnClickListener {
+            if (isAppInstalled(activity.getString(R.string.deezer_package))) {
+                if (DeezerUtil.isConnected()) {
+                    DeezerUtil.removeAccess(activity)
+                    matchDeezerLinkButton()
+                } else {
+                    DeezerUtil.connect(activity, object: DialogListener{
+                        override fun onComplete(p0: Bundle?) {
+                            matchDeezerLinkButton()
+                        }
+
+                        override fun onCancel() {
+                            matchDeezerLinkButton()
+                        }
+
+                        override fun onException(p0: Exception?) {
+                            matchDeezerLinkButton()
+                        }
+
+                    })
+                }
+            } else {
+                browserIntent(activity.getString(R.string.deezer_playstore))
             }
         }
     }
@@ -146,6 +182,9 @@ class MainActivity : AdvancedActivity() {
                 matchSpotifyLinkButton(spotifyAppRemote)
             }
         })
+
+        DeezerUtil.restore(activity)
+        matchDeezerLinkButton()
     }
 
     override fun onStop() {

@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.view.MotionEvent
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import de.datlag.musicslide.R
+import java.lang.Exception
 
 class CommonUtil {
 
@@ -91,6 +93,15 @@ class CommonUtil {
                 }
                 return@OnTouchListener true
             })
+        }
+
+        fun Context.isAppInstalled(packageName: String): Boolean {
+            return try {
+                this.packageManager.getPackageInfo(packageName, 0)
+                true
+            } catch (ignored: Exception) {
+                false
+            }
         }
     }
 

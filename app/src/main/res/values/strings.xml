@@ -31,6 +31,7 @@
 
     <!-- deezer -->
     <string name="deezer_id" translatable="false">client_id</string>
+    <string name="deezer_package" translatable="false">deezer.android.app</string>
 
     <!-- lockscreen -->
     <string name="lock_clock_format" translatable="false">HH:mm</string>
@@ -43,4 +44,5 @@
     <string name="github_repo" translatable="false">https://github.com/DATL4G/MusicSlide-Android</string>
     <string name="spotify_apps" translatable="false">https://spotify.com/account/apps</string>
     <string name="spotify_playstore" translatable="false">https://play.google.com/store/apps/details?id=com.spotify.music</string>
+    <string name="deezer_playstore" translatable="false">https://play.google.com/store/apps/details?id=deezer.android.app</string>
 </resources>
