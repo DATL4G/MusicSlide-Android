@@ -4,6 +4,7 @@ import android.content.Context
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import de.datlag.musicslide.R
 import de.datlag.musicslide.extend.AdvancedActivity
 import java.util.*
 
@@ -11,18 +12,15 @@ class SpotifyUtil {
 
     companion object {
 
-        const val CLIENT_ID = "client_id"
-        const val REDIRECT_URI = "https://github.com/DATL4G/MusicSlide-Android"
-
         private var appRemote: SpotifyAppRemote? = null
         var lastBeat: Calendar = Calendar.getInstance().apply { add(Calendar.MINUTE, -20) }
 
         fun removeAccess(advancedActivity: AdvancedActivity) {
-            advancedActivity.browserIntent("https://spotify.com/account/apps")
+            advancedActivity.browserIntent(advancedActivity.getString(R.string.spotify_apps))
         }
 
-        fun connectionBuilder(clientId: String = CLIENT_ID, redirectUri: String = REDIRECT_URI): ConnectionParams.Builder {
-            return ConnectionParams.Builder(clientId).setRedirectUri(redirectUri).setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
+        fun connectionBuilder(context: Context): ConnectionParams.Builder {
+            return ConnectionParams.Builder(context.getString(R.string.spotify_id)).setRedirectUri(context.getString(R.string.github_repo)).setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
         }
 
         fun connect(context: Context, connectionParams: ConnectionParams, changeListener: ChangeListener? = null) {
@@ -43,6 +41,10 @@ class SpotifyUtil {
 
         fun getAppRemote(): SpotifyAppRemote? {
             return appRemote
+        }
+
+        fun isConnected(spotifyAppRemote: SpotifyAppRemote? = appRemote): Boolean {
+            return spotifyAppRemote != null && spotifyAppRemote.isConnected
         }
 
     }

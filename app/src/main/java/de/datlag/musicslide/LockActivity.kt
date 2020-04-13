@@ -1,5 +1,6 @@
 package de.datlag.musicslide
 
+import android.app.KeyguardManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +11,7 @@ import de.datlag.musicslide.adapter.LockPager
 import de.datlag.musicslide.transformer.LockTransformer
 import de.datlag.musicslide.util.BootUtil
 import de.datlag.musicslide.util.CommonUtil
+import de.datlag.musicslide.util.SaveUtil.Companion.getBool
 import de.datlag.musicslide.util.StreamingUtil
 
 
@@ -26,8 +28,7 @@ class LockActivity : AppCompatActivity() {
         CommonUtil.requestPortrait(this)
         pagerSetup()
 
-        val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
-        if (!sharedPreferences.getBoolean("appearance", false)) {
+        if (!getBool(getString(R.string.appearance), false)) {
             finishAffinity()
         }
     }
@@ -74,11 +75,19 @@ class LockActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun setLockAppearance() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val keyManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+            keyManager.requestDismissKeyguard(this, null)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
         }
     }
 

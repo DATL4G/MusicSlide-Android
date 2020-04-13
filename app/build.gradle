@@ -72,4 +72,5 @@ dependencies {
     implementation 'com.spotify.android:auth:1.1.0'
     implementation project(':spotify-app-remote')
     implementation project(':spotify-auth')
+    implementation project(':deezer')
 }

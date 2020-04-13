@@ -17,6 +17,8 @@ import de.datlag.musicslide.util.CommonUtil
 import de.datlag.musicslide.util.CommonUtil.Companion.applyScaleClick
 import de.datlag.musicslide.util.SpotifyUtil
 import de.datlag.musicslide.util.StreamingUtil
+import de.datlag.musicslide.util.SaveUtil.Companion.saveBool
+import de.datlag.musicslide.util.SaveUtil.Companion.getBool
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -43,28 +45,25 @@ class MainActivity : AdvancedActivity() {
 
         linkSpotify.applyScaleClick()
         linkDeezer.applyScaleClick()
-        linkDeezer.text = "Connect"
-
-
     }
 
     private fun writeSharedPrefs() {
-        sharedPreferences.edit().putBoolean("appearance", sharedPreferences.getBoolean("appearance", true)).apply()
-        sharedPreferences.edit().putBoolean("buttons_usable", sharedPreferences.getBoolean("buttons_usable", true)).apply()
-        sharedPreferences.edit().putBoolean("skip_usable", sharedPreferences.getBoolean("skip_usable", true)).apply()
+        saveBool(getString(R.string.appearance), getBool(getString(R.string.appearance), true))
+        saveBool(getString(R.string.buttons_usable), getBool(getString(R.string.buttons_usable), true))
+        saveBool(getString(R.string.skip_usable), getBool(getString(R.string.skip_usable), true))
     }
 
     private fun askPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
                 MaterialAlertDialogBuilder(this)
-                    .setTitle("Draw over other Apps")
-                    .setMessage("This is needed to show the Music-Configuration on LockScreen")
-                    .setPositiveButton("Grant") { _, _ ->
+                    .setTitle(getString(R.string.draw_title))
+                    .setMessage(getString(R.string.draw_message))
+                    .setPositiveButton(getString(R.string.grant)) { _, _ ->
                         startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                            Uri.parse("package:$packageName")))
+                            Uri.parse(getString(R.string.packageParam)+packageName)))
                     }
-                    .setNegativeButton("Close") { _, _ ->
+                    .setNegativeButton(getString(R.string.close)) { _, _ ->
                         finishAffinity()
                     }
                     .create().show()
@@ -74,12 +73,12 @@ class MainActivity : AdvancedActivity() {
 
     private fun matchSpotifyLinkButton(spotifyAppRemote: SpotifyAppRemote?) {
         linkSpotify.isEnabled = SpotifyAppRemote.isSpotifyInstalled(this)
-        linkSpotify.text = if (spotifyAppRemote != null) "Disconnect" else "Connect"
+        linkSpotify.text = if (SpotifyUtil.isConnected(spotifyAppRemote)) getString(R.string.disconnect) else getString(R.string.connect)
         linkSpotify.setOnClickListener {
             if (spotifyAppRemote != null && spotifyAppRemote.isConnected) {
                 SpotifyUtil.removeAccess(activity)
             } else {
-                val connectionParams = SpotifyUtil.connectionBuilder()
+                val connectionParams = SpotifyUtil.connectionBuilder(activity)
                     .showAuthView(true)
                     .build()
                 SpotifyUtil.connect(activity, connectionParams, object: SpotifyUtil.ChangeListener{
@@ -93,23 +92,23 @@ class MainActivity : AdvancedActivity() {
 
     private fun applySwitches() {
         switchAppearance.setOnCheckedChangeListener { isChecked ->
-            sharedPreferences.edit().putBoolean("appearance", isChecked).apply()
+            saveBool(getString(R.string.appearance), isChecked)
         }
 
         switchSkip.setOnCheckedChangeListener { isChecked ->
-            sharedPreferences.edit().putBoolean("skip_usable", isChecked).apply()
+            saveBool(getString(R.string.skip_usable), isChecked)
         }
 
         switchButton.setOnCheckedChangeListener { isChecked ->
-            sharedPreferences.edit().putBoolean("buttons_usable", isChecked).apply()
+            saveBool(getString(R.string.buttons_usable), isChecked)
             if (switchSkip.isChecked)
                 switchSkip.setChecked(isChecked, false)
             skipEnableState(isChecked)
         }
 
-        switchAppearance.setChecked(sharedPreferences.getBoolean("appearance", true), false)
-        switchButton.setChecked(sharedPreferences.getBoolean("buttons_usable", true), false)
-        switchSkip.setChecked(switchButton.isChecked && sharedPreferences.getBoolean("skip_usable", true), false)
+        switchAppearance.setChecked(getBool(getString(R.string.appearance), true), false)
+        switchSkip.setChecked(getBool(getString(R.string.skip_usable), true), false)
+        switchButton.setChecked(getBool(getString(R.string.buttons_usable), true), false)
         skipEnableState(switchButton.isChecked)
     }
 
@@ -130,7 +129,7 @@ class MainActivity : AdvancedActivity() {
         BootUtil.registerReceiver(this)
         StreamingUtil.registerReceiver(this)
 
-        val connectionParams = SpotifyUtil.connectionBuilder()
+        val connectionParams = SpotifyUtil.connectionBuilder(activity)
             .showAuthView(false)
             .build()
         SpotifyUtil.connect(this, connectionParams, object: SpotifyUtil.ChangeListener{

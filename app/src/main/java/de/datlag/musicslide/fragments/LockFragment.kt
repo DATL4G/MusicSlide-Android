@@ -60,7 +60,7 @@ class LockFragment : Fragment() {
         val now = Calendar.getInstance()
         val hour = now.get(Calendar.HOUR_OF_DAY)
         val minute = now.get(Calendar.MINUTE)
-        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val dateFormat = SimpleDateFormat(requireContext().getString(R.string.lock_clock_format), Locale.getDefault())
 
         clockImageView.animateToTime(hour, minute)
         clockTextView.text = dateFormat.format(now.time)

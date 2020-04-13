@@ -1,7 +1,44 @@
 <resources>
     <string name="app_name" translatable="false">MusicSlide</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
     <string name="font_path" translatable="false">fonts/Poppins-Regular.ttf</string>
     <string name="settings">Settings</string>
+
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
+    <string name="grant">Grant</string>
+    <string name="close">Close</string>
+    <string name="packageParam" translatable="false">package:</string>
+
+    <!-- shared preferences -->
+    <string name="appearance" translatable="false">appearance</string>
+    <string name="buttons_usable" translatable="false">buttons_usable</string>
+    <string name="skip_usable" translatable="false">skip_usable</string>
+
+    <!-- draw over other permission -->
+    <string name="draw_title">Draw over other Apps</string>
+    <string name="draw_message">This is needed to show the Music on LockScreen</string>
+
+    <!-- spotify -->
+    <string name="spotify_package" translatable="false">com.spotify.music</string>
+    <string name="spotify_active" translatable="false">.active</string>
+    <string name="spotify_playback_change" translatable="false">.playbackstatechanged</string>
+    <string name="spotify_queue_change" translatable="false">.queuechanged</string>
+    <string name="spotify_meta_change" translatable="false">.metadatachanged</string>
+    <string name="spotify_id" translatable="false">client_id</string>
+
+    <!-- deezer -->
+    <string name="deezer_id" translatable="false">client_id</string>
+
+    <!-- lockscreen -->
+    <string name="lock_clock_format" translatable="false">HH:mm</string>
+
+    <!-- object animator -->
+    <string name="animator_scaleX" translatable="false">scaleX</string>
+    <string name="animator_scaleY" translatable="false">scaleY</string>
+
+    <!-- links -->
+    <string name="github_repo" translatable="false">https://github.com/DATL4G/MusicSlide-Android</string>
+    <string name="spotify_apps" translatable="false">https://spotify.com/account/apps</string>
 </resources>

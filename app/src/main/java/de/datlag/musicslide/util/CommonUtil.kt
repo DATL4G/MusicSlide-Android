@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import de.datlag.musicslide.R
 
 class CommonUtil {
 
@@ -62,13 +63,13 @@ class CommonUtil {
         }
 
         fun View.applyScaleClick(scale: Float = 0.9F) {
-            val scaleDownX = ObjectAnimator.ofFloat(this, "scaleX", scale)
-            val scaleDownY = ObjectAnimator.ofFloat(this, "scaleY", scale)
+            val scaleDownX = ObjectAnimator.ofFloat(this, this.context.getString(R.string.animator_scaleX), scale)
+            val scaleDownY = ObjectAnimator.ofFloat(this, this.context.getString(R.string.animator_scaleY), scale)
             val scaleDown = AnimatorSet()
             scaleDown.play(scaleDownX).with(scaleDownY)
 
-            val scaleUpX = ObjectAnimator.ofFloat(this, "scaleX", this.scaleX)
-            val scaleUpY = ObjectAnimator.ofFloat(this, "scaleY", this.scaleY)
+            val scaleUpX = ObjectAnimator.ofFloat(this, this.context.getString(R.string.animator_scaleX), this.scaleX)
+            val scaleUpY = ObjectAnimator.ofFloat(this, this.context.getString(R.string.animator_scaleY), this.scaleY)
             val scaleUp = AnimatorSet()
             scaleUp.play(scaleUpX).with(scaleUpY)
 

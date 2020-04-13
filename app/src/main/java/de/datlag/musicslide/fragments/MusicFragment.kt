@@ -1,7 +1,5 @@
 package de.datlag.musicslide.fragments
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,18 +13,17 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.PlayerState
 import de.datlag.musicslide.R
 import de.datlag.musicslide.util.CommonUtil.Companion.applyScaleClick
+import de.datlag.musicslide.util.SaveUtil.Companion.getBool
 import de.datlag.musicslide.util.SpotifyUtil
 import kotlinx.android.synthetic.main.fragment_music.*
 import java.util.*
 
 class MusicFragment : Fragment() {
 
-    private lateinit var sharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = requireContext().getSharedPreferences(requireContext().packageName, Context.MODE_PRIVATE)
-        if (!sharedPreferences.getBoolean("appearance", false)) {
+
+        if (!requireContext().getBool(getString(R.string.appearance), false)) {
             requireActivity().finishAffinity()
         }
     }
@@ -58,7 +55,7 @@ class MusicFragment : Fragment() {
     private fun connectStreamServices() {
         val appRemote: SpotifyAppRemote? = SpotifyUtil.getAppRemote()
         if (appRemote == null || !appRemote.isConnected) {
-            val connectionParams = SpotifyUtil.connectionBuilder()
+            val connectionParams = SpotifyUtil.connectionBuilder(requireContext())
                 .showAuthView(false)
                 .build()
             SpotifyUtil.connect(requireContext(), connectionParams, object: SpotifyUtil.ChangeListener{
@@ -141,9 +138,9 @@ class MusicFragment : Fragment() {
 
     private fun buttonsUsable(checkSkip: Boolean = false): Boolean {
         return if (!checkSkip) {
-            sharedPreferences.getBoolean("buttons_usable", false)
+            requireContext().getBool(getString(R.string.buttons_usable), false)
         } else {
-            buttonsUsable(false) && sharedPreferences.getBoolean("skip_usable", false)
+            buttonsUsable(false) && requireContext().getBool(getString(R.string.skip_usable), false)
         }
     }
 
