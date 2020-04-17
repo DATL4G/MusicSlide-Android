@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">Cerrar</string>
+    <string name="grant">Conceder</string>
+    <string name="cancel">Cancelar</string>
+    <string name="okay">Bueno</string>
+    <string name="install">Instalar</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="connect">Conectar</string>
+    <string name="settings">Configuraciones</string>
+    <string name="draw_title">Mostrar sobre otras aplicaciones</string>
+    <string name="draw_message">Se requiere este permiso para mostrar la música en la pantalla de bloqueo</string>
+    <string name="showOnLock">Mostrar en la pantalla de bloqueo</string>
+    <string name="buttonsClickable">Botones utilizables</string>
+    <string name="skipClickable">Botones de salto utilizables</string>
+    <string name="autoDismissLock">Desbloquear automáticamente</string>
+</resources>

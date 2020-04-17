@@ -118,23 +118,30 @@
                     android:paddingBottom="8dp"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.bitvale.switcher.SwitcherX
-                        android:id="@+id/switchAppearance"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:rotation="180"
-                        app:switcher_icon_color="@color/buttonIcon"
-                        app:switcher_off_color="@color/buttonColor"
-                        app:switcher_on_color="@color/buttonColor"
-                        app:elevation="0dp" />
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <com.bitvale.switcher.SwitcherX
+                            android:id="@+id/switchAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:rotation="180"
+                            app:switcher_icon_color="@color/buttonIcon"
+                            app:switcher_off_color="@color/buttonColor"
+                            app:switcher_on_color="@color/buttonColor"
+                            app:elevation="0dp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="24dp"
                         android:layout_marginLeft="24dp"
-                        android:text="Show on LockScreen"
+                        android:text="@string/showOnLock"
                         android:textColor="@color/defaultTextColor"
+                        app:autoSizeMinTextSize="14sp"
                         app:autoSizeTextType="uniform" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -148,23 +155,30 @@
                     android:paddingBottom="8dp"
                     app:layout_constraintTop_toBottomOf="@id/appearanceContainer">
 
-                    <com.bitvale.switcher.SwitcherX
-                        android:id="@+id/switchButton"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:rotation="180"
-                        app:switcher_icon_color="@color/buttonIcon"
-                        app:switcher_off_color="@color/buttonColor"
-                        app:switcher_on_color="@color/buttonColor"
-                        app:elevation="0dp" />
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <com.bitvale.switcher.SwitcherX
+                            android:id="@+id/switchButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:rotation="180"
+                            app:switcher_icon_color="@color/buttonIcon"
+                            app:switcher_off_color="@color/buttonColor"
+                            app:switcher_on_color="@color/buttonColor"
+                            app:elevation="0dp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="24dp"
                         android:layout_marginLeft="24dp"
-                        android:text="Buttons usable"
+                        android:text="@string/buttonsClickable"
                         android:textColor="@color/defaultTextColor"
+                        app:autoSizeMinTextSize="14sp"
                         app:autoSizeTextType="uniform" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -178,23 +192,67 @@
                     android:paddingBottom="8dp"
                     app:layout_constraintTop_toBottomOf="@id/buttonsContainer">
 
-                <com.bitvale.switcher.SwitcherX
-                    android:id="@+id/switchSkip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:rotation="180"
-                    app:switcher_icon_color="@color/buttonIcon"
-                    app:switcher_off_color="@color/buttonColor"
-                    app:switcher_on_color="@color/buttonColor"
-                    app:elevation="0dp" />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <com.bitvale.switcher.SwitcherX
+                            android:id="@+id/switchSkip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:rotation="180"
+                            app:switcher_icon_color="@color/buttonIcon"
+                            app:switcher_off_color="@color/buttonColor"
+                            app:switcher_on_color="@color/buttonColor"
+                            app:elevation="0dp"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="24dp"
                         android:layout_marginLeft="24dp"
-                        android:text="Skip Buttons usable"
+                        android:text="@string/skipClickable"
                         android:textColor="@color/defaultTextColor"
+                        app:autoSizeMinTextSize="14sp"
+                        app:autoSizeTextType="uniform"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/keyguardContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/skipContainer">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <com.bitvale.switcher.SwitcherX
+                            android:id="@+id/switchKeyguard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:rotation="180"
+                            app:switcher_icon_color="@color/buttonIcon"
+                            app:switcher_off_color="@color/buttonColor"
+                            app:switcher_on_color="@color/buttonColor"
+                            app:elevation="0dp"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/autoDismissLock"
+                        android:textColor="@color/defaultTextColor"
+                        app:autoSizeMinTextSize="14sp"
                         app:autoSizeTextType="uniform"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

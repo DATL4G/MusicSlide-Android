@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="draw_title">Dessinez sur d\'autres applications</string>
+    <string name="draw_message">Cette autorisation est requise pour afficher la musique sur l\'écran de verrouillage</string>
+    <string name="settings">Paramètres</string>
+    <string name="connect">Relier</string>
+    <string name="disconnect">Déconnecter</string>
+    <string name="install">Installer</string>
+    <string name="okay">D\'accord</string>
+    <string name="cancel">Annuler</string>
+    <string name="grant">Subvention</string>
+    <string name="close">Proche</string>
+    <string name="skipClickable">Boutons de saut utilisables</string>
+    <string name="buttonsClickable">Boutons utilisables</string>
+    <string name="showOnLock">Afficher sur l\'écran de verrouillage</string>
+    <string name="autoDismissLock">Déverrouillez automatiquement</string>
+</resources>

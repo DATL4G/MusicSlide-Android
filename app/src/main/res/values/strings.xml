@@ -11,12 +11,17 @@
     <string name="grant">Grant</string>
     <string name="close">Close</string>
     <string name="packageParam" translatable="false">package:</string>
-    <string name="repository">Repository</string>
+    <string name="repository" translatable="false">Repository</string>
+    <string name="showOnLock">Show On LockScreen</string>
+    <string name="buttonsClickable">Buttons usable</string>
+    <string name="skipClickable">Skip Buttons usable</string>
+    <string name="autoDismissLock">Unlock automatically</string>
 
     <!-- shared preferences -->
     <string name="appearance" translatable="false">appearance</string>
     <string name="buttons_usable" translatable="false">buttons_usable</string>
     <string name="skip_usable" translatable="false">skip_usable</string>
+    <string name="auto_unlock" translatable="false">auto_unlock</string>
 
     <!-- draw over other permission -->
     <string name="draw_title">Draw over other Apps</string>

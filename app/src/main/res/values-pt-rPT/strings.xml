@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="draw_message">Esta permissão é necessária para exibir a música na tela de bloqueio</string>
+    <string name="draw_title">Mostrar sobre outros aplicativos</string>
+    <string name="close">Fechar</string>
+    <string name="grant">Conceder</string>
+    <string name="cancel">Cancelar</string>
+    <string name="okay">OK</string>
+    <string name="install">Instalar</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="connect">Conectar</string>
+    <string name="settings">Configurações</string>
+    <string name="skipClickable">Botões de salto utilizáveis</string>
+    <string name="buttonsClickable">Botões utilizáveis</string>
+    <string name="showOnLock">Mostrar na tela de bloqueio</string>
+    <string name="autoDismissLock">Desbloquear automaticamente</string>
+</resources>

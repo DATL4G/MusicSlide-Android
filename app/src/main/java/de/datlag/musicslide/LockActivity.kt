@@ -87,11 +87,13 @@ class LockActivity : AdvancedActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val keyManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            keyManager.requestDismissKeyguard(this, null)
-        } else {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
+        if (getBool(getString(R.string.auto_unlock), false)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val keyManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                keyManager.requestDismissKeyguard(this, null)
+            } else {
+                window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
+            }
         }
     }
 

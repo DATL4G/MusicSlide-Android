@@ -55,6 +55,7 @@ class MainActivity : AdvancedActivity() {
         saveBool(getString(R.string.appearance), getBool(getString(R.string.appearance), true))
         saveBool(getString(R.string.buttons_usable), getBool(getString(R.string.buttons_usable), true))
         saveBool(getString(R.string.skip_usable), getBool(getString(R.string.skip_usable), true))
+        saveBool(getString(R.string.auto_unlock), getBool(getString(R.string.auto_unlock), false))
     }
 
     private fun askPermission() {
@@ -119,9 +120,14 @@ class MainActivity : AdvancedActivity() {
             skipEnableState(isChecked)
         }
 
+        switchKeyguard.setOnCheckedChangeListener { isChecked ->
+            saveBool(activity.getString(R.string.auto_unlock), isChecked)
+        }
+
         switchAppearance.setChecked(getBool(getString(R.string.appearance), true), false)
         switchSkip.setChecked(getBool(getString(R.string.skip_usable), true), false)
         switchButton.setChecked(getBool(getString(R.string.buttons_usable), true), false)
+        switchKeyguard.setChecked(getBool(getString(R.string.auto_unlock), false), false)
         skipEnableState(switchButton.isChecked)
     }
 

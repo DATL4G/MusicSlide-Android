@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Impostazioni</string>
+    <string name="connect">Collegare</string>
+    <string name="disconnect">Separato</string>
+    <string name="install">Installare</string>
+    <string name="okay">Va bene</string>
+    <string name="cancel">Annulla</string>
+    <string name="grant">Concedere</string>
+    <string name="close">Vicino</string>
+    <string name="draw_title">Mostra su altre app</string>
+    <string name="draw_message">Questa autorizzazione è necessaria per visualizzare la musica sulla schermata di blocco</string>
+    <string name="showOnLock">Mostra sulla schermata di blocco</string>
+    <string name="buttonsClickable">Pulsanti utilizzabili</string>
+    <string name="skipClickable">Pulsanti Skip utilizzabili</string>
+    <string name="autoDismissLock">Sblocca automaticamente</string>
+</resources>

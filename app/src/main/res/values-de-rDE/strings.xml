@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Einstellungen</string>
+    <string name="connect">Verbinden</string>
+    <string name="disconnect">Trennen</string>
+    <string name="install">Installieren</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Abbruch</string>
+    <string name="grant">Erlauben</string>
+    <string name="close">Schließen</string>
+    <string name="draw_title">Einblenden über anderen Apps</string>
+    <string name="draw_message">Diese Berechtigung wird benötigt um die Musik auf dem Sperrbildschirm anzuzeigen</string>
+    <string name="showOnLock">Auf Sperrbildschirm anzeigen</string>
+    <string name="buttonsClickable">Tasten nutzbar</string>
+    <string name="skipClickable">Überspringtasten nutzbar</string>
+    <string name="autoDismissLock">Automatisch Sperre aufheben</string>
+</resources>
