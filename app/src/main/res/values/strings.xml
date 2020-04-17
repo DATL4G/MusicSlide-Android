@@ -11,6 +11,7 @@
     <string name="grant">Grant</string>
     <string name="close">Close</string>
     <string name="packageParam" translatable="false">package:</string>
+    <string name="repository">Repository</string>
 
     <!-- shared preferences -->
     <string name="appearance" translatable="false">appearance</string>

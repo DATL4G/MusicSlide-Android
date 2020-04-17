@@ -45,6 +45,10 @@ class MainActivity : AdvancedActivity() {
         applySwitches()
 
         linkSpotify.scaleClick()
+        openGitHub.scaleClick()
+        openGitHub.setOnClickListener {
+            browserIntent(getString(R.string.github_repo))
+        }
     }
 
     private fun writeSharedPrefs() {
