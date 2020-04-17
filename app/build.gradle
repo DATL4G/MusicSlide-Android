@@ -20,6 +20,7 @@ android {
         versionName "1.0"
 
         vectorDrawables.useSupportLibrary true
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,7 +62,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.android.gms:play-services-ads:19.1.0'
 
     implementation 'io.github.inflationx:viewpump:2.0.3'
     implementation 'io.github.inflationx:calligraphy3:3.1.1'

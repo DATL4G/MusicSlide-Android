@@ -2,7 +2,6 @@ package de.datlag.musicslide.fragments
 
 import android.content.Context
 import android.graphics.drawable.Animatable
-import android.media.AudioManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,9 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.makeramen.roundedimageview.RoundedImageView
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.PlayerState
@@ -34,6 +36,7 @@ class MusicFragment : Fragment() {
     private var skipNextButton: AppCompatImageView? = null
     private var playPauseButton: AppCompatImageView? = null
     private var trackControlLayout: ConstraintLayout? = null
+    private var adView: AdView? = null
 
     private lateinit var con: Context
     private var musicChangeListener: MusicUtil.ChangeListener? = null
@@ -45,6 +48,8 @@ class MusicFragment : Fragment() {
         if (!con.getBool(getString(R.string.appearance), false)) {
             requireActivity().finishAffinity()
         }
+
+        MobileAds.initialize(con)
     }
 
     override fun onCreateView(
@@ -66,6 +71,7 @@ class MusicFragment : Fragment() {
         skipNextButton = view.findViewById(R.id.skipNext)
         playPauseButton = view.findViewById(R.id.playPause)
         trackControlLayout = view.findViewById(R.id.trackControl)
+        adView = view.findViewById(R.id.adView)
     }
 
     override fun onResume() {
@@ -74,6 +80,7 @@ class MusicFragment : Fragment() {
             connectSpotify()
         }
         androidConnect()
+        adView?.loadAd(AdRequest.Builder().build())
     }
 
     override fun onStart() {
@@ -188,10 +195,6 @@ class MusicFragment : Fragment() {
                 }
             }
             MusicUtil.addListener(con, musicChangeListener!!)
-        }
-        val manager: AudioManager = con.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        if (!manager.isMusicActive && !SpotifyUtil.isPlaying) {
-            requireActivity().finish()
         }
     }
 

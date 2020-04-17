@@ -3,12 +3,13 @@ package de.datlag.musicslide
 import android.app.Application
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import androidx.multidex.MultiDexApplication
 import de.datlag.musicslide.services.LockService
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 
-class App : Application() {
+class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

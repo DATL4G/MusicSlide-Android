@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.ads.MobileAds
 import de.datlag.musicslide.adapter.LockPager
 import de.datlag.musicslide.commons.enterFullScreen
 import de.datlag.musicslide.commons.getBool
@@ -28,6 +29,7 @@ class LockActivity : AdvancedActivity() {
         window.useNotchSpace()
         window.hideSystemUI()
         requestPortrait()
+        MobileAds.initialize(this)
         pagerSetup()
 
         if (!getBool(getString(R.string.appearance), false)) {

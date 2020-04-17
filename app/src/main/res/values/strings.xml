@@ -64,6 +64,11 @@
     <string name="animator_scaleX" translatable="false">scaleX</string>
     <string name="animator_scaleY" translatable="false">scaleY</string>
 
+    <!-- admob (samples implemented) -->
+    <string name="app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="music_fragment_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="main_activity_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
     <!-- links -->
     <string name="github_repo" translatable="false">https://github.com/DATL4G/MusicSlide-Android</string>
     <string name="spotify_apps" translatable="false">https://spotify.com/account/apps</string>

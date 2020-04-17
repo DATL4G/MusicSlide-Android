@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import de.datlag.musicslide.commons.*
@@ -36,6 +38,8 @@ class MainActivity : AdvancedActivity() {
         window.useNotchSpace()
         window.applyStatusBarColor(ContextCompat.getColor(this, R.color.statusBarColor))
         requestPortrait()
+
+        MobileAds.initialize(this)
 
         askPermission()
         applySwitches()
@@ -142,6 +146,8 @@ class MainActivity : AdvancedActivity() {
                 matchSpotifyLinkButton(spotifyAppRemote)
             }
         })
+
+        adView.loadAd(AdRequest.Builder().build())
     }
 
     override fun onStop() {

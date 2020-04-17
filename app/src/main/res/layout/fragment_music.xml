@@ -7,7 +7,7 @@
     android:paddingTop="?attr/actionBarSize"
     android:paddingRight="?attr/actionBarSize"
     android:paddingEnd="?attr/actionBarSize"
-    android:paddingBottom="?attr/actionBarSize">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
         fontPath="fonts/Poppins-Bold.ttf"
@@ -67,10 +67,11 @@
         android:id="@+id/trackControl"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         android:layout_marginLeft="?attr/actionBarSize"
         android:layout_marginStart="?attr/actionBarSize"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:layout_marginBottom="16dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="?attr/actionBarSize"
@@ -103,5 +104,17 @@
             android:id="@+id/skipNext"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/adView"
+        app:adSize="BANNER"
+        app:adUnitId="@string/music_fragment_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="?attr/actionBarSize"
+        android:layout_marginStart="?attr/actionBarSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
