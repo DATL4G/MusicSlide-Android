@@ -53,15 +53,15 @@
                     android:layout_height="56dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/button_background"
-                    android:drawableLeft="@drawable/ic_spotify"
                     android:drawableStart="@drawable/ic_spotify"
+                    android:drawableLeft="@drawable/ic_spotify"
                     android:gravity="center"
-                    android:paddingLeft="4dp"
                     android:paddingStart="4dp"
-                    android:paddingRight="28dp"
+                    android:paddingLeft="4dp"
                     android:paddingEnd="28dp"
-                    android:textColor="@color/buttonTextColor"
+                    android:paddingRight="28dp"
                     android:text="@string/install"
+                    android:textColor="@color/buttonTextColor"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -69,18 +69,18 @@
                     fontPath="fonts/Poppins-Bold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/button_background"
-                    android:drawableLeft="@drawable/ic_github_logo"
                     android:drawableStart="@drawable/ic_github_logo"
+                    android:drawableLeft="@drawable/ic_github_logo"
                     android:gravity="center"
-                    android:paddingLeft="4dp"
                     android:paddingStart="4dp"
-                    android:paddingRight="28dp"
+                    android:paddingLeft="4dp"
                     android:paddingEnd="28dp"
-                    android:textColor="@color/buttonTextColor"
+                    android:paddingRight="28dp"
                     android:text="@string/repository"
+                    android:textColor="@color/buttonTextColor"
                     app:layout_constraintTop_toBottomOf="@id/linkSpotify" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,10 +128,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:rotation="180"
+                            app:elevation="0dp"
                             app:switcher_icon_color="@color/buttonIcon"
                             app:switcher_off_color="@color/buttonColor"
-                            app:switcher_on_color="@color/buttonColor"
-                            app:elevation="0dp" />
+                            app:switcher_on_color="@color/buttonColor" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -165,10 +165,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:rotation="180"
+                            app:elevation="0dp"
                             app:switcher_icon_color="@color/buttonIcon"
                             app:switcher_off_color="@color/buttonColor"
-                            app:switcher_on_color="@color/buttonColor"
-                            app:elevation="0dp" />
+                            app:switcher_on_color="@color/buttonColor" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -202,10 +202,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:rotation="180"
+                            app:elevation="0dp"
                             app:switcher_icon_color="@color/buttonIcon"
                             app:switcher_off_color="@color/buttonColor"
-                            app:switcher_on_color="@color/buttonColor"
-                            app:elevation="0dp"/>
+                            app:switcher_on_color="@color/buttonColor" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -216,7 +216,7 @@
                         android:text="@string/skipClickable"
                         android:textColor="@color/defaultTextColor"
                         app:autoSizeMinTextSize="14sp"
-                        app:autoSizeTextType="uniform"/>
+                        app:autoSizeTextType="uniform" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -239,10 +239,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:rotation="180"
+                            app:elevation="0dp"
                             app:switcher_icon_color="@color/buttonIcon"
                             app:switcher_off_color="@color/buttonColor"
-                            app:switcher_on_color="@color/buttonColor"
-                            app:elevation="0dp"/>
+                            app:switcher_on_color="@color/buttonColor" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -253,7 +253,7 @@
                         android:text="@string/autoDismissLock"
                         android:textColor="@color/defaultTextColor"
                         app:autoSizeMinTextSize="14sp"
-                        app:autoSizeTextType="uniform"/>
+                        app:autoSizeTextType="uniform" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -261,11 +261,11 @@
     </ScrollView>
 
     <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/adView"
         app:adSize="BANNER"
         app:adUnitId="@string/main_activity_banner"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

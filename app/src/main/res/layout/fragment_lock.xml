@@ -4,31 +4,31 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/black"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <rm.com.clocks.ClockImageView
         android:id="@+id/clockImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:scaleType="center"
-        app:hasFrame="true"
         app:clockColor="#ffffff"
         app:frameWidth="regular"
-        app:pointerWidth="thin"
+        app:hasFrame="true"
         app:hours="0"
         app:minutes="0"
-        app:timeSetDuration="400"/>
+        app:pointerWidth="thin"
+        app:timeSetDuration="400" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/clockText"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:gravity="center"
         android:layout_marginTop="?attr/actionBarSize"
-        android:textColor="#ffffff"
+        android:gravity="center"
         android:padding="4dp"
+        android:textColor="#ffffff"
         android:textStyle="bold"
         app:autoSizeTextType="uniform" />
 
