@@ -21,17 +21,41 @@
     <string name="draw_title">Draw over other Apps</string>
     <string name="draw_message">This is needed to show the Music on LockScreen</string>
 
+    <!-- music change -->
+    <string name="active" translatable="false">.active</string>
+    <string name="playback_complete" translatable="false">.playbackcomplete</string>
+    <string name="playstate_changed" translatable="false">.playstatechanged</string>
+    <string name="playback_state_change" translatable="false">.playbackstatechanged</string>
+    <string name="queue_change" translatable="false">.queuechanged</string>
+    <string name="meta_data_change" translatable="false">.metadatachanged</string>
+    <string name="meta_changed" translatable="false">.metachanged</string>
+
+    <!-- music control -->
+    <string name="service_command" translatable="false">.musicservicecommand</string>
+    <string name="music_command" translatable="false">command</string>
+    <string name="music_pause" translatable="false">pause</string>
+    <string name="music_play" translatable="false">play</string>
+    <string name="music_next" translatable="false">next</string>
+    <string name="music_previous" translatable="false">previous</string>
+
     <!-- spotify -->
     <string name="spotify_package" translatable="false">com.spotify.music</string>
-    <string name="spotify_active" translatable="false">.active</string>
-    <string name="spotify_playback_change" translatable="false">.playbackstatechanged</string>
-    <string name="spotify_queue_change" translatable="false">.queuechanged</string>
-    <string name="spotify_meta_change" translatable="false">.metadatachanged</string>
     <string name="spotify_id" translatable="false">client_id</string>
 
-    <!-- deezer -->
-    <string name="deezer_id" translatable="false">client_id</string>
+    <!-- music apps packages -->
+    <string name="android_package" translatable="false">com.android.music</string>
+    <string name="htc_package" translatable="false">com.htc.music</string>
+    <string name="fm_package" translatable="false">fm.last.android</string>
+    <string name="sec_package" translatable="false">com.sec.android.app.music</string>
+    <string name="winamp_package" translatable="false">com.nullsoft.winamp</string>
+    <string name="amazon_package" translatable="false">com.amazon.mp3</string>
     <string name="deezer_package" translatable="false">deezer.android.app</string>
+    <string name="miui_package" translatable="false">com.miui.player</string>
+    <string name="real_package" translatable="false">com.real.IMP</string>
+    <string name="sony_package" translatable="false">com.sonyericsson.music</string>
+    <string name="radio_package" translatable="false">com.com.rdio.android</string>
+    <string name="samsung_package" translatable="false">com.samsung.sec.android.MusicPlayer</string>
+    <string name="apollo_package" translatable="false">com.andrew.apollo</string>
 
     <!-- lockscreen -->
     <string name="lock_clock_format" translatable="false">HH:mm</string>
@@ -44,5 +68,4 @@
     <string name="github_repo" translatable="false">https://github.com/DATL4G/MusicSlide-Android</string>
     <string name="spotify_apps" translatable="false">https://spotify.com/account/apps</string>
     <string name="spotify_playstore" translatable="false">https://play.google.com/store/apps/details?id=com.spotify.music</string>
-    <string name="deezer_playstore" translatable="false">https://play.google.com/store/apps/details?id=deezer.android.app</string>
 </resources>

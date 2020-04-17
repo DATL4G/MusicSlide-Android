@@ -1,8 +1,10 @@
 package de.datlag.musicslide.extend
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.view.View
 import androidx.annotation.IdRes
@@ -32,6 +34,11 @@ abstract class AdvancedActivity : AppCompatActivity() {
     fun browserIntent(url: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         this.startActivity(browserIntent)
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    fun requestPortrait() {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
 }

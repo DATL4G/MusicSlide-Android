@@ -1,29 +1,48 @@
 package de.datlag.musicslide.fragments
 
+import android.content.Context
 import android.graphics.drawable.Animatable
+import android.media.AudioManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.makeramen.roundedimageview.RoundedImageView
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.PlayerState
 import de.datlag.musicslide.R
-import de.datlag.musicslide.util.CommonUtil.Companion.applyScaleClick
-import de.datlag.musicslide.util.SaveUtil.Companion.getBool
+import de.datlag.musicslide.commons.getBool
+import de.datlag.musicslide.commons.scaleClick
+import de.datlag.musicslide.util.MusicUtil
 import de.datlag.musicslide.util.SpotifyUtil
 import kotlinx.android.synthetic.main.fragment_music.*
 import java.util.*
 
 class MusicFragment : Fragment() {
 
+    private var trackTextView: AppCompatTextView? = null
+    private var artistTextView: AppCompatTextView? = null
+    private var trackImageView: RoundedImageView? = null
+    private var skipPreviousButton: AppCompatImageView? = null
+    private var skipNextButton: AppCompatImageView? = null
+    private var playPauseButton: AppCompatImageView? = null
+    private var trackControlLayout: ConstraintLayout? = null
+
+    private lateinit var con: Context
+    private var musicChangeListener: MusicUtil.ChangeListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!requireContext().getBool(getString(R.string.appearance), false)) {
+        con = context ?: activity ?: requireContext()
+        if (!con.getBool(getString(R.string.appearance), false)) {
             requireActivity().finishAffinity()
         }
     }
@@ -40,11 +59,29 @@ class MusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (moveRight.drawable as Animatable).start()
+        trackTextView = view.findViewById(R.id.trackText)
+        artistTextView = view.findViewById(R.id.artistText)
+        trackImageView = view.findViewById(R.id.trackImage)
+        skipPreviousButton = view.findViewById(R.id.skipPrevious)
+        skipNextButton = view.findViewById(R.id.skipNext)
+        playPauseButton = view.findViewById(R.id.playPause)
+        trackControlLayout = view.findViewById(R.id.trackControl)
     }
 
     override fun onResume() {
         super.onResume()
-        connectStreamServices()
+        if (SpotifyAppRemote.isSpotifyInstalled(con)) {
+            connectSpotify()
+        }
+        androidConnect()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (SpotifyAppRemote.isSpotifyInstalled(con)) {
+            connectSpotify()
+        }
+        androidConnect()
     }
 
     override fun onStop() {
@@ -52,68 +89,75 @@ class MusicFragment : Fragment() {
         SpotifyAppRemote.disconnect(SpotifyUtil.getAppRemote())
     }
 
-    private fun connectStreamServices() {
+    private fun connectSpotify() {
         val appRemote: SpotifyAppRemote? = SpotifyUtil.getAppRemote()
         if (appRemote == null || !appRemote.isConnected) {
-            val connectionParams = SpotifyUtil.connectionBuilder(requireContext())
+            val connectionParams = SpotifyUtil.connectionBuilder(con)
                 .showAuthView(false)
                 .build()
-            SpotifyUtil.connect(requireContext(), connectionParams, object: SpotifyUtil.ChangeListener{
+            SpotifyUtil.connect(con, connectionParams, object : SpotifyUtil.ChangeListener {
                 override fun onChanged(spotifyAppRemote: SpotifyAppRemote?) {
-                    setMusicData()
+                    spotifyData(spotifyAppRemote)
                 }
             })
         } else {
-            setMusicData()
+            spotifyData(appRemote)
         }
     }
 
-    private fun setMusicData() {
-        val spotifyAppRemote = SpotifyUtil.getAppRemote()
-
+    private fun spotifyData(spotifyAppRemote: SpotifyAppRemote?) {
         spotifyAppRemote?.playerApi?.playerState?.setResultCallback {
-            setSpotifyData(spotifyAppRemote, it)
             SpotifyUtil.lastBeat = Calendar.getInstance()
+            SpotifyUtil.trackDuration = it.track.duration
+            SpotifyUtil.isPlaying = !it.isPaused
+
+            if (!MusicUtil.playing) {
+                spotifyViewData(spotifyAppRemote, it)
+            }
+
         }
         spotifyAppRemote?.playerApi?.subscribeToPlayerState()?.setEventCallback {
-            setSpotifyData(spotifyAppRemote, it)
             SpotifyUtil.lastBeat = Calendar.getInstance()
+            SpotifyUtil.trackDuration = it.track.duration
+            SpotifyUtil.isPlaying = !it.isPaused
+
+            if (!MusicUtil.playing) {
+                spotifyViewData(spotifyAppRemote, it)
+            }
+
         }
         spotifyAppRemote?.playerApi?.subscribeToPlayerState()?.setErrorCallback {
-            requireActivity().finishAffinity()
+            if (!MusicUtil.playing) {
+                requireActivity().finishAffinity()
+            }
         }
         spotifyAppRemote?.playerApi?.subscribeToPlayerContext()?.setErrorCallback {
-            requireActivity().finishAffinity()
+            if (!MusicUtil.playing) {
+                requireActivity().finishAffinity()
+            }
         }
     }
 
-    private fun setSpotifyData(spotifyAppRemote: SpotifyAppRemote, playerState: PlayerState) {
-        trackText.text = playerState.track.name
-        artistText.text = playerState.track.artist.name
+    private fun spotifyViewData(spotifyAppRemote: SpotifyAppRemote, playerState: PlayerState) {
+        viewData(playerState.track.name, playerState.track.artist.name)
+
         spotifyAppRemote.imagesApi.getImage(playerState.track.imageUri).setResultCallback {
-            trackImage.setImageBitmap(it)
+            trackImageView?.setImageBitmap(it)
         }
 
-        skipPrevious.apply {
-            applyScaleClick(0.8F)
-            setOnClickListener {
-                if (buttonsUsable(true)) {
-                    spotifyAppRemote.playerApi.skipPrevious()
-                }
+        skipPreviousButton?.setOnClickListener {
+            if (buttonsUsable(true)) {
+                spotifyAppRemote.playerApi.skipPrevious()
             }
         }
 
-        skipNext.apply {
-            applyScaleClick(0.8F)
-            setOnClickListener {
-                if (buttonsUsable(true)) {
-                    spotifyAppRemote.playerApi.skipNext()
-                }
+        skipNextButton?.setOnClickListener {
+            if (buttonsUsable(true)) {
+                spotifyAppRemote.playerApi.skipNext()
             }
         }
 
-        playPause.apply {
-            applyScaleClick(0.8F)
+        playPauseButton?.apply {
             if (playerState.isPaused) {
                 setDrawable(R.drawable.ic_play_circle_filled_white_24dp)
                 setOnClickListener {
@@ -132,20 +176,84 @@ class MusicFragment : Fragment() {
                 }
             }
         }
-
-        trackControl.visibility = View.VISIBLE
     }
+
+    private fun androidConnect() {
+        if (musicChangeListener == null) {
+            musicChangeListener = object : MusicUtil.ChangeListener {
+                override fun onChange() {
+                    if (!SpotifyUtil.isPlaying) {
+                        androidData()
+                    }
+                }
+            }
+            MusicUtil.addListener(con, musicChangeListener!!)
+        }
+        val manager: AudioManager = con.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        if (!manager.isMusicActive && !SpotifyUtil.isPlaying) {
+            requireActivity().finish()
+        }
+    }
+
+    private fun androidData() {
+        viewData(MusicUtil.track, MusicUtil.artist)
+
+        trackImageView?.setDrawable(R.drawable.ic_audiotrack_white_24dp)
+
+        skipPreviousButton?.setOnClickListener {
+            if (buttonsUsable(true)) {
+                MusicUtil.control(con, 3)
+            }
+        }
+
+        skipNextButton?.setOnClickListener {
+            if (buttonsUsable(true)) {
+                MusicUtil.control(con, 2)
+            }
+        }
+
+        playPauseButton?.apply {
+            if (MusicUtil.playing) {
+                setDrawable(R.drawable.ic_pause_circle_filled_white_24dp)
+                setOnClickListener {
+                    if (buttonsUsable()) {
+                        MusicUtil.control(con, 1)
+                        setDrawable(R.drawable.ic_play_circle_filled_white_24dp)
+                    }
+                }
+            } else {
+                setDrawable(R.drawable.ic_play_circle_filled_white_24dp)
+                setOnClickListener {
+                    if (buttonsUsable()) {
+                        MusicUtil.control(con, 0)
+                        setDrawable(R.drawable.ic_pause_circle_filled_white_24dp)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun viewData(track: String, artist: String) {
+        trackTextView?.text = track
+        artistTextView?.text = artist
+        skipPreviousButton?.scaleClick(0.8F)
+        skipNextButton?.scaleClick(0.8F)
+        playPauseButton?.scaleClick(0.8F)
+
+        trackControlLayout?.visibility = View.VISIBLE
+    }
+
 
     private fun buttonsUsable(checkSkip: Boolean = false): Boolean {
         return if (!checkSkip) {
-            requireContext().getBool(getString(R.string.buttons_usable), false)
+            con.getBool(getString(R.string.buttons_usable), false)
         } else {
-            buttonsUsable(false) && requireContext().getBool(getString(R.string.skip_usable), false)
+            buttonsUsable(false) && con.getBool(getString(R.string.skip_usable), false)
         }
     }
 
     private fun ImageView.setDrawable(@DrawableRes resource: Int) {
-        setImageDrawable(ContextCompat.getDrawable(requireContext(), resource))
+        setImageDrawable(ContextCompat.getDrawable(con, resource))
     }
 
     companion object {

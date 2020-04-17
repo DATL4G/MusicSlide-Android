@@ -14,6 +14,8 @@ class SpotifyUtil {
 
         private var appRemote: SpotifyAppRemote? = null
         var lastBeat: Calendar = Calendar.getInstance().apply { add(Calendar.MINUTE, -20) }
+        var trackDuration: Long = 0
+        var isPlaying: Boolean = false
 
         fun removeAccess(advancedActivity: AdvancedActivity) {
             advancedActivity.browserIntent(advancedActivity.getString(R.string.spotify_apps))

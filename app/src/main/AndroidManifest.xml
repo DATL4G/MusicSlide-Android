@@ -52,6 +52,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service android:name=".services.LockService"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
             android:enabled="true"
             android:exported="true" />
 
@@ -71,6 +72,7 @@
 
         <receiver
             android:name=".receiver.SpotifyReceiver"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -78,6 +80,118 @@
                 <action android:name="com.spotify.music.playbackstatechanged"/>
                 <action android:name="com.spotify.music.metadatachanged"/>
                 <action android:name="com.spotify.music.queuechanged"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receiver.MusicReceiver"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.music.active" />
+                <action android:name="com.android.music.playbackcomplete" />
+                <action android:name="com.android.music.playstatechanged" />
+                <action android:name="com.android.music.playbackstatechanged" />
+                <action android:name="com.android.music.queuechanged" />
+                <action android:name="com.android.music.metadatachanged" />
+                <action android:name="com.android.music.metachanged" />
+
+                <action android:name="com.htc.music.active" />
+                <action android:name="com.htc.music.playbackcomplete" />
+                <action android:name="com.htc.music.playstatechanged" />
+                <action android:name="com.htc.music.playbackstatechanged" />
+                <action android:name="com.htc.music.queuechanged" />
+                <action android:name="com.htc.music.metadatachanged" />
+                <action android:name="com.htc.music.metachanged" />
+
+                <action android:name="fm.last.android.active" />
+                <action android:name="fm.last.android.playbackcomplete" />
+                <action android:name="fm.last.android.playstatechanged" />
+                <action android:name="fm.last.android.playbackstatechanged" />
+                <action android:name="fm.last.android.queuechanged" />
+                <action android:name="fm.last.android.metadatachanged" />
+                <action android:name="fm.last.android.metachanged" />
+
+                <action android:name="com.sec.android.app.music.active" />
+                <action android:name="com.sec.android.app.music.playbackcomplete" />
+                <action android:name="com.sec.android.app.music.playstatechanged" />
+                <action android:name="com.sec.android.app.music.playbackstatechanged" />
+                <action android:name="com.sec.android.app.music.queuechanged" />
+                <action android:name="com.sec.android.app.music.metadatachanged" />
+                <action android:name="com.sec.android.app.music.metachanged" />
+
+                <action android:name="com.nullsoft.winamp.active" />
+                <action android:name="com.nullsoft.winamp.playbackcomplete" />
+                <action android:name="com.nullsoft.winamp.playstatechanged" />
+                <action android:name="com.nullsoft.winamp.playbackstatechanged" />
+                <action android:name="com.nullsoft.winamp.queuechanged" />
+                <action android:name="com.nullsoft.winamp.metadatachanged" />
+                <action android:name="com.nullsoft.winamp.metachanged" />
+
+                <action android:name="com.amazon.mp.active" />
+                <action android:name="com.amazon.mp.playbackcomplete" />
+                <action android:name="com.amazon.mp.playstatechanged" />
+                <action android:name="com.amazon.mp.playbackstatechanged" />
+                <action android:name="com.amazon.mp.queuechanged" />
+                <action android:name="com.amazon.mp.metadatachanged" />
+                <action android:name="com.amazon.mp.metachanged" />
+
+                <action android:name="deezer.android.app.active" />
+                <action android:name="deezer.android.app.playbackcomplete" />
+                <action android:name="deezer.android.app.playstatechanged" />
+                <action android:name="deezer.android.app.playbackstatechanged" />
+                <action android:name="deezer.android.app.queuechanged" />
+                <action android:name="deezer.android.app.metadatachanged" />
+                <action android:name="deezer.android.app.metachanged" />
+
+                <action android:name="com.miui.player.active" />
+                <action android:name="com.miui.player.playbackcomplete" />
+                <action android:name="com.miui.player.playstatechanged" />
+                <action android:name="com.miui.player.playbackstatechanged" />
+                <action android:name="com.miui.player.queuechanged" />
+                <action android:name="com.miui.player.metadatachanged" />
+                <action android:name="com.miui.player.metachanged" />
+
+                <action android:name="com.real.IMP.active" />
+                <action android:name="com.real.IMP.playbackcomplete" />
+                <action android:name="com.real.IMP.playstatechanged" />
+                <action android:name="com.real.IMP.playbackstatechanged" />
+                <action android:name="com.real.IMP.queuechanged" />
+                <action android:name="com.real.IMP.metadatachanged" />
+                <action android:name="com.real.IMP.metachanged" />
+
+                <action android:name="com.sonyericsson.music.active" />
+                <action android:name="com.sonyericsson.music.playbackcomplete" />
+                <action android:name="com.sonyericsson.music.playstatechanged" />
+                <action android:name="com.sonyericsson.music.playbackstatechanged" />
+                <action android:name="com.sonyericsson.music.queuechanged" />
+                <action android:name="com.sonyericsson.music.metadatachanged" />
+                <action android:name="com.sonyericsson.music.metachanged" />
+
+                <action android:name="com.com.rdio.android.active" />
+                <action android:name="com.com.rdio.android.playbackcomplete" />
+                <action android:name="com.com.rdio.android.playstatechanged" />
+                <action android:name="com.com.rdio.android.playbackstatechanged" />
+                <action android:name="com.com.rdio.android.queuechanged" />
+                <action android:name="com.com.rdio.android.metadatachanged" />
+                <action android:name="com.com.rdio.android.metachanged" />
+
+                <action android:name="com.samsung.sec.android.MusicPlayer.active" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.playbackcomplete" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.playstatechanged" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.playbackstatechanged" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.queuechanged" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.metadatachanged" />
+                <action android:name="com.samsung.sec.android.MusicPlayer.metachanged" />
+
+                <action android:name="com.andrew.apollo.active" />
+                <action android:name="com.andrew.apollo.playbackcomplete" />
+                <action android:name="com.andrew.apollo.playstatechanged" />
+                <action android:name="com.andrew.apollo.playbackstatechanged" />
+                <action android:name="com.andrew.apollo.queuechanged" />
+                <action android:name="com.andrew.apollo.metadatachanged" />
+                <action android:name="com.andrew.apollo.metachanged" />
             </intent-filter>
         </receiver>
     </application>

@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import de.datlag.musicslide.LockActivity
 import de.datlag.musicslide.R
-import de.datlag.musicslide.util.SaveUtil.Companion.getBool
+import de.datlag.musicslide.commons.getBool
 
 class BootReceiver : BroadcastReceiver() {
 

@@ -11,10 +11,10 @@ class SpotifyReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val activeFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.spotify_active)
-        val playbackFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.spotify_playback_change)
-        val queueFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.spotify_queue_change)
-        val metaFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.spotify_meta_change)
+        val activeFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.active)
+        val playbackFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.playback_state_change)
+        val queueFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.queue_change)
+        val metaFilter = context?.getString(R.string.spotify_package)+context?.getString(R.string.meta_changed)
 
         intent?.let { it ->
             when (it.action) {

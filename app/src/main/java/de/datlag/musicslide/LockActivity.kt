@@ -5,27 +5,29 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import de.datlag.musicslide.adapter.LockPager
+import de.datlag.musicslide.commons.enterFullScreen
+import de.datlag.musicslide.commons.getBool
+import de.datlag.musicslide.commons.hideSystemUI
+import de.datlag.musicslide.commons.useNotchSpace
+import de.datlag.musicslide.extend.AdvancedActivity
 import de.datlag.musicslide.transformer.LockTransformer
 import de.datlag.musicslide.util.BootUtil
-import de.datlag.musicslide.util.CommonUtil
-import de.datlag.musicslide.util.SaveUtil.Companion.getBool
 import de.datlag.musicslide.util.StreamingUtil
 
 
-class LockActivity : AppCompatActivity() {
+class LockActivity : AdvancedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lock)
 
         setLockAppearance()
-        CommonUtil.enterFullScreen(window)
-        CommonUtil.useNotchSpace(window)
-        CommonUtil.hideSystemUI(window)
-        CommonUtil.requestPortrait(this)
+        window.enterFullScreen()
+        window.useNotchSpace()
+        window.hideSystemUI()
+        requestPortrait()
         pagerSetup()
 
         if (!getBool(getString(R.string.appearance), false)) {
