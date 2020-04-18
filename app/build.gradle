@@ -70,7 +70,7 @@ dependencies {
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'com.github.DATL4G:Switcher:-SNAPSHOT'
+    implementation 'com.github.DATL4G:Switcher:0.3'
     implementation 'com.github.alxrm:animated-clock-icon:1.0.2'
 
     implementation 'com.spotify.android:auth:1.1.0'
