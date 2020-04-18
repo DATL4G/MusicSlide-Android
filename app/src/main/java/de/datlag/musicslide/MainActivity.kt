@@ -34,7 +34,7 @@ class MainActivity : AdvancedActivity() {
         writeSharedPrefs()
 
         window.enterFullScreen()
-        window.showSystemUI()
+        window.hideSystemUI()
         window.useNotchSpace()
         window.applyStatusBarColor(ContextCompat.getColor(this, R.color.statusBarColor))
         requestPortrait()
