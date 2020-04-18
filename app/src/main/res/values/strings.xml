@@ -25,7 +25,7 @@
 
     <!-- draw over other permission -->
     <string name="draw_title">Draw over other Apps</string>
-    <string name="draw_message">This is needed to show the Music on LockScreen</string>
+    <string name="draw_message">This permission is needed to show the Music on LockScreen</string>
 
     <!-- music change -->
     <string name="active" translatable="false">.active</string>
