@@ -14,4 +14,5 @@
     <string name="buttonsClickable">Pulsanti utilizzabili</string>
     <string name="skipClickable">Pulsanti Skip utilizzabili</string>
     <string name="autoDismissLock">Sblocca automaticamente</string>
+    <string name="alternativeLayout">Layout alternativo</string>
 </resources>

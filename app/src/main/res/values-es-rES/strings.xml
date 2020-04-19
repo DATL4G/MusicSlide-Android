@@ -14,4 +14,5 @@
     <string name="buttonsClickable">Botones utilizables</string>
     <string name="skipClickable">Botones de salto utilizables</string>
     <string name="autoDismissLock">Desbloquear automáticamente</string>
+    <string name="alternativeLayout">Diseño alternativo</string>
 </resources>

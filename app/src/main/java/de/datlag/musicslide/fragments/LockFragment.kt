@@ -43,6 +43,21 @@ class LockFragment : Fragment() {
         cancelTickerSchedule()
     }
 
+    override fun onStop() {
+        super.onStop()
+        cancelTickerSchedule()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        scheduleNextTick(true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        scheduleNextTick(true)
+    }
+
     private fun cancelTickerSchedule() {
         handlerTicker.removeCallbacksAndMessages(null)
     }

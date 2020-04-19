@@ -14,4 +14,5 @@
     <string name="buttonsClickable">Tasten nutzbar</string>
     <string name="skipClickable">Überspringtasten nutzbar</string>
     <string name="autoDismissLock">Automatisch Sperre aufheben</string>
+    <string name="alternativeLayout">Alternatives Layout</string>
 </resources>
