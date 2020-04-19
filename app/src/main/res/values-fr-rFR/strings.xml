@@ -14,4 +14,5 @@
     <string name="buttonsClickable">Boutons utilisables</string>
     <string name="showOnLock">Afficher sur l\'écran de verrouillage</string>
     <string name="autoDismissLock">Déverrouillez automatiquement</string>
+    <string name="alternativeLayout">Disposition alternative</string>
 </resources>

@@ -16,12 +16,14 @@
     <string name="buttonsClickable">Buttons usable</string>
     <string name="skipClickable">Skip Buttons usable</string>
     <string name="autoDismissLock">Unlock automatically</string>
+    <string name="alternativeLayout">Alternative Layout</string>
 
     <!-- shared preferences -->
     <string name="appearance" translatable="false">appearance</string>
     <string name="buttons_usable" translatable="false">buttons_usable</string>
     <string name="skip_usable" translatable="false">skip_usable</string>
     <string name="auto_unlock" translatable="false">auto_unlock</string>
+    <string name="alternative_layout" translatable="false">alternative_layout</string>
 
     <!-- draw over other permission -->
     <string name="draw_title">Draw over other Apps</string>

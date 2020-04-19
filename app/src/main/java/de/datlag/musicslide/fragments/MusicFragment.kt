@@ -57,7 +57,11 @@ class MusicFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_music, container, false)
+        return if (!con.getBool(getString(R.string.alternative_layout), false)) {
+            inflater.inflate(R.layout.fragment_music, container, false)
+        } else {
+            inflater.inflate(R.layout.fragment_alternative_music, container, false)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
