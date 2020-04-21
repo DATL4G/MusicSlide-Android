@@ -2,6 +2,7 @@ package de.datlag.musicslide.fragments
 
 import android.content.Context
 import android.graphics.drawable.Animatable
+import android.media.AudioManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,7 @@ class MusicFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         con = context ?: activity ?: requireContext()
-        if (!con.getBool(getString(R.string.appearance), false)) {
+        if (checkQuit()) {
             requireActivity().finishAffinity()
         }
 
@@ -80,7 +81,9 @@ class MusicFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (SpotifyAppRemote.isSpotifyInstalled(con)) {
+        if (checkQuit()) {
+            requireActivity().finishAffinity()
+        } else if (SpotifyAppRemote.isSpotifyInstalled(con)) {
             connectSpotify()
         }
         androidConnect()
@@ -89,7 +92,9 @@ class MusicFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (SpotifyAppRemote.isSpotifyInstalled(con)) {
+        if (checkQuit()) {
+            requireActivity().finishAffinity()
+        } else if (SpotifyAppRemote.isSpotifyInstalled(con)) {
             connectSpotify()
         }
         androidConnect()
@@ -108,7 +113,15 @@ class MusicFragment : Fragment() {
                 .build()
             SpotifyUtil.connect(con, connectionParams, object : SpotifyUtil.ChangeListener {
                 override fun onChanged(spotifyAppRemote: SpotifyAppRemote?) {
-                    spotifyData(spotifyAppRemote)
+                    if (spotifyAppRemote == null || !spotifyAppRemote.isConnected) {
+                        if (isMusicPlaying(true)) {
+                            androidData()
+                        } else {
+                            requireActivity().finishAffinity()
+                        }
+                    } else {
+                        spotifyData(spotifyAppRemote)
+                    }
                 }
             })
         } else {
@@ -116,35 +129,33 @@ class MusicFragment : Fragment() {
         }
     }
 
-    private fun spotifyData(spotifyAppRemote: SpotifyAppRemote?) {
-        spotifyAppRemote?.playerApi?.playerState?.setResultCallback {
+    private fun spotifyData(spotifyAppRemote: SpotifyAppRemote) {
+        spotifyAppRemote.playerApi?.playerState?.setResultCallback {
             SpotifyUtil.lastBeat = Calendar.getInstance()
             SpotifyUtil.trackDuration = it.track.duration
             SpotifyUtil.isPlaying = !it.isPaused
 
-            if (!MusicUtil.playing) {
-                spotifyViewData(spotifyAppRemote, it)
-            }
-
+            spotifyViewData(spotifyAppRemote, it)
         }
-        spotifyAppRemote?.playerApi?.subscribeToPlayerState()?.setEventCallback {
+        spotifyAppRemote.playerApi?.subscribeToPlayerState()?.setEventCallback {
             SpotifyUtil.lastBeat = Calendar.getInstance()
             SpotifyUtil.trackDuration = it.track.duration
             SpotifyUtil.isPlaying = !it.isPaused
 
-            if (!MusicUtil.playing) {
-                spotifyViewData(spotifyAppRemote, it)
-            }
-
+            spotifyViewData(spotifyAppRemote, it)
         }
-        spotifyAppRemote?.playerApi?.subscribeToPlayerState()?.setErrorCallback {
-            if (!MusicUtil.playing) {
+        spotifyAppRemote.playerApi?.subscribeToPlayerState()?.setErrorCallback {
+            if (!isMusicPlaying(true)) {
                 requireActivity().finishAffinity()
+            } else {
+                androidData()
             }
         }
-        spotifyAppRemote?.playerApi?.subscribeToPlayerContext()?.setErrorCallback {
-            if (!MusicUtil.playing) {
+        spotifyAppRemote.playerApi?.subscribeToPlayerContext()?.setErrorCallback {
+            if (!isMusicPlaying(true)) {
                 requireActivity().finishAffinity()
+            } else {
+                androidData()
             }
         }
     }
@@ -257,6 +268,22 @@ class MusicFragment : Fragment() {
         } else {
             buttonsUsable(false) && con.getBool(getString(R.string.skip_usable), false)
         }
+    }
+
+    private fun isMusicPlaying(receiverNotified: Boolean = false): Boolean {
+        return if (receiverNotified) {
+            MusicUtil.playing
+        } else {
+            val audioManager: AudioManager = con.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.isMusicActive
+        }
+    }
+
+    private fun checkQuit(): Boolean {
+        return (!isMusicPlaying(true) && !SpotifyAppRemote.isSpotifyInstalled(con)) || !con.getBool(
+            getString(R.string.appearance),
+            false
+        )
     }
 
     private fun ImageView.setDrawable(@DrawableRes resource: Int) {

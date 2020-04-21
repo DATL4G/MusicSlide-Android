@@ -67,6 +67,7 @@
 
     <!-- lockscreen -->
     <string name="lock_clock_format" translatable="false">HH:mm</string>
+    <string name="lock_date_format" translatable="false">dd. MMM yyyy</string>
 
     <!-- object animator -->
     <string name="animator_scaleX" translatable="false">scaleX</string>

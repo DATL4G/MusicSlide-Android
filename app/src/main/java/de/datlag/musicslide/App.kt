@@ -1,6 +1,5 @@
 package de.datlag.musicslide
 
-import android.app.Application
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.multidex.MultiDexApplication

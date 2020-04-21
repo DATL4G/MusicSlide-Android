@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:orientation="vertical"
-    android:paddingEnd="?attr/actionBarSize"
-    android:paddingRight="?attr/actionBarSize">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/moveRight"
@@ -21,8 +19,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="?attr/actionBarSize"
         android:layout_marginLeft="?attr/actionBarSize"
+        android:layout_marginStart="?attr/actionBarSize"
+        android:layout_marginRight="?attr/actionBarSize"
+        android:layout_marginEnd="?attr/actionBarSize"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -111,8 +111,6 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="?attr/actionBarSize"
-        android:layout_marginLeft="?attr/actionBarSize"
         app:adSize="BANNER"
         app:adUnitId="@string/music_fragment_banner"
         app:layout_constraintBottom_toBottomOf="parent"

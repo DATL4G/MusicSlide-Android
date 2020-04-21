@@ -18,6 +18,7 @@ class LockFragment : Fragment() {
 
     private lateinit var clockImageView: ClockImageView
     private lateinit var clockTextView: AppCompatTextView
+    private lateinit var dateTextView: AppCompatTextView
 
     private val handlerTicker = Handler()
     private val initialDelay = TimeUnit.SECONDS.toMillis(1)
@@ -34,6 +35,7 @@ class LockFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         clockImageView = view.findViewById(R.id.clockImage)
         clockTextView = view.findViewById(R.id.clockText)
+        dateTextView = view.findViewById(R.id.dateText)
 
         scheduleNextTick(true)
     }
@@ -75,10 +77,12 @@ class LockFragment : Fragment() {
         val now = Calendar.getInstance()
         val hour = now.get(Calendar.HOUR_OF_DAY)
         val minute = now.get(Calendar.MINUTE)
-        val dateFormat = SimpleDateFormat(requireContext().getString(R.string.lock_clock_format), Locale.getDefault())
+        val clockFormat = SimpleDateFormat(requireContext().getString(R.string.lock_clock_format), Locale.getDefault())
+        val dateFormat = SimpleDateFormat(requireContext().getString(R.string.lock_date_format), Locale.getDefault())
 
         clockImageView.animateToTime(hour, minute)
-        clockTextView.text = dateFormat.format(now.time)
+        clockTextView.text = clockFormat.format(now.time)
+        dateTextView.text = dateFormat.format(now.time)
     }
 
     private fun calculateNextDelay(): Long {
