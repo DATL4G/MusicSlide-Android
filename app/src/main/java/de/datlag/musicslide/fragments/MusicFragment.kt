@@ -21,7 +21,9 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.PlayerState
 import de.datlag.musicslide.R
+import de.datlag.musicslide.commons.checkQuitLockScreen
 import de.datlag.musicslide.commons.getBool
+import de.datlag.musicslide.commons.isMusicPlaying
 import de.datlag.musicslide.commons.scaleClick
 import de.datlag.musicslide.util.MusicUtil
 import de.datlag.musicslide.util.SpotifyUtil
@@ -46,7 +48,7 @@ class MusicFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         con = context ?: activity ?: requireContext()
-        if (checkQuit()) {
+        if (con.checkQuitLockScreen()) {
             requireActivity().finishAffinity()
         }
 
@@ -81,7 +83,7 @@ class MusicFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (checkQuit()) {
+        if (con.checkQuitLockScreen()) {
             requireActivity().finishAffinity()
         } else if (SpotifyAppRemote.isSpotifyInstalled(con)) {
             connectSpotify()
@@ -92,7 +94,7 @@ class MusicFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (checkQuit()) {
+        if (con.checkQuitLockScreen()) {
             requireActivity().finishAffinity()
         } else if (SpotifyAppRemote.isSpotifyInstalled(con)) {
             connectSpotify()
@@ -114,7 +116,7 @@ class MusicFragment : Fragment() {
             SpotifyUtil.connect(con, connectionParams, object : SpotifyUtil.ChangeListener {
                 override fun onChanged(spotifyAppRemote: SpotifyAppRemote?) {
                     if (spotifyAppRemote == null || !spotifyAppRemote.isConnected) {
-                        if (isMusicPlaying(true)) {
+                        if (con.isMusicPlaying(true)) {
                             androidData()
                         } else {
                             requireActivity().finishAffinity()
@@ -145,14 +147,14 @@ class MusicFragment : Fragment() {
             spotifyViewData(spotifyAppRemote, it)
         }
         spotifyAppRemote.playerApi?.subscribeToPlayerState()?.setErrorCallback {
-            if (!isMusicPlaying(true)) {
+            if (!con.isMusicPlaying(true)) {
                 requireActivity().finishAffinity()
             } else {
                 androidData()
             }
         }
         spotifyAppRemote.playerApi?.subscribeToPlayerContext()?.setErrorCallback {
-            if (!isMusicPlaying(true)) {
+            if (!con.isMusicPlaying(true)) {
                 requireActivity().finishAffinity()
             } else {
                 androidData()
@@ -268,22 +270,6 @@ class MusicFragment : Fragment() {
         } else {
             buttonsUsable(false) && con.getBool(getString(R.string.skip_usable), false)
         }
-    }
-
-    private fun isMusicPlaying(receiverNotified: Boolean = false): Boolean {
-        return if (receiverNotified) {
-            MusicUtil.playing
-        } else {
-            val audioManager: AudioManager = con.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            audioManager.isMusicActive
-        }
-    }
-
-    private fun checkQuit(): Boolean {
-        return (!isMusicPlaying(true) && !SpotifyAppRemote.isSpotifyInstalled(con)) || !con.getBool(
-            getString(R.string.appearance),
-            false
-        )
     }
 
     private fun ImageView.setDrawable(@DrawableRes resource: Int) {

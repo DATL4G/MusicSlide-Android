@@ -8,10 +8,7 @@ import android.view.WindowManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.MobileAds
 import de.datlag.musicslide.adapter.LockPager
-import de.datlag.musicslide.commons.enterFullScreen
-import de.datlag.musicslide.commons.getBool
-import de.datlag.musicslide.commons.hideSystemUI
-import de.datlag.musicslide.commons.useNotchSpace
+import de.datlag.musicslide.commons.*
 import de.datlag.musicslide.extend.AdvancedActivity
 import de.datlag.musicslide.transformer.LockTransformer
 import de.datlag.musicslide.util.BootUtil
@@ -32,7 +29,7 @@ class LockActivity : AdvancedActivity() {
         MobileAds.initialize(this)
         pagerSetup()
 
-        if (!getBool(getString(R.string.appearance), false)) {
+        if (checkQuitLockScreen()) {
             finishAffinity()
         }
     }
